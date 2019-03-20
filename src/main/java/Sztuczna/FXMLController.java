@@ -2,6 +2,7 @@ package Sztuczna;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,20 +22,8 @@ public class FXMLController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
 
-        if (selectedFile != null) {
-
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(selectedFile.getParent() + '/' + selectedFile.getName())))) {
-
-            String line;
-            while ((line = reader.readLine()) != null)
-                System.out.println(line);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Loader l = new Loader();
+        ArrayList<Article> articles = l.loadFile(selectedFile);
     }
     
     @Override
