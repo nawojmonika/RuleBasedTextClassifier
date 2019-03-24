@@ -32,7 +32,8 @@ public class FXMLController implements Initializable {
                 };
             }
         }
-        System.out.println(articles.toString());
+
+        articles.get(1).tokenizeWords();
     }
 
     @Override
