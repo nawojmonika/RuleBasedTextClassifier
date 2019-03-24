@@ -1,5 +1,7 @@
 package Sztuczna;
 
+import Sztuczna.Algorithms.Algorithm;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,14 +11,14 @@ public class Article {
     private String body;
     private String oldId;
     private String countryLabel;
-    private ArrayList<String> tokenizedWords;
+
+    private ArrayList<String> algorithmsWords = new ArrayList<>();
 
     public Article(String title, String body, String oldId, String countryLabel) {
         this.title = title;
         this.body = body;
         this.oldId = oldId;
         this.countryLabel = countryLabel;
-        this.tokenizedWords = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -35,13 +37,15 @@ public class Article {
         return countryLabel;
     }
 
-    public void tokenizeWords() {
-        Pattern wordPatern = Pattern.compile("(\\w+)");
-        Matcher wordsMatcher = wordPatern.matcher(body);
+    public ArrayList<String> getAlgorithmsWords() {
+        return this.algorithmsWords;
+    }
 
-        while (wordsMatcher.find()) {
-            System.out.println(wordsMatcher.group(1));
-            tokenizedWords.add(wordsMatcher.group(1));
-        }
+    public Article performWordsAlgorithm(Algorithm<ArrayList> algorithm) {
+        this.algorithmsWords = algorithm.perform(this);
+        return this;
+    }
+
+    public void tokenizeWords() {
     }
 }
