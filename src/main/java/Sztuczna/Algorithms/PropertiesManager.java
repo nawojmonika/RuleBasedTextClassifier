@@ -80,6 +80,7 @@ public class PropertiesManager {
             for (Property singleProperty : userProperties.getValue()) {
                 articlesProperties.append("\t");
                 articlesProperties.append(singleProperty.toString());
+                articlesProperties.append(System.lineSeparator());
             }
             articlesProperties.append(System.lineSeparator());
         }

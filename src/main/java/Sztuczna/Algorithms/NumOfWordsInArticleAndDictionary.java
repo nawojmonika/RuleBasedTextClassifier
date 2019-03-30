@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class NumberOfWords extends Property<Integer> {
+public class NumOfWordsInArticleAndDictionary extends Property<Integer> {
     Map<String, Integer> words;
 
-    public NumberOfWords(PropertiesManager pm) {
-        super("NumberOfWords", 0);
+    public NumOfWordsInArticleAndDictionary(PropertiesManager pm) {
+        super("NumOfWordsInArticleAndDictionary", 0);
         this.words = pm.getWordsDictionary();
     }
 
@@ -19,7 +19,6 @@ public class NumberOfWords extends Property<Integer> {
     public Integer perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
         this.setValue((int)wordsInArticle.stream().filter(wordFromArticle -> words.containsKey(wordFromArticle)).count());
-        System.out.println(this.getValue());
         return this.getValue();
     }
 }
