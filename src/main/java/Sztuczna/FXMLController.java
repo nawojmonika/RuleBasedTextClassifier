@@ -4,11 +4,10 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
-import Sztuczna.Algorithms.StopListAlgorithm;
-import Sztuczna.Algorithms.ToLowerCase;
-import Sztuczna.Algorithms.TokenizeWords;
+import Sztuczna.Algorithms.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,11 +37,10 @@ public class FXMLController implements Initializable {
             }
         }
 
-        articles.get(1)
-                .performWordsAlgorithm(new TokenizeWords())
-                .performWordsAlgorithm(new ToLowerCase())
-                .performWordsAlgorithm(new StopListAlgorithm());
-        System.out.println(articles.get(1).getAlgorithmsWords());
+        PropertiesManager propertiesManager = new PropertiesManager(articles);
+        propertiesManager.addProperty("NumberOfWOrds");
+        System.out.println(propertiesManager.propertiesToString());
+
     }
 
     @Override
