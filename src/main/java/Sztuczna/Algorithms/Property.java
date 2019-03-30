@@ -1,6 +1,6 @@
 package Sztuczna.Algorithms;
 
-public abstract class Property<T> implements Algorithm<Integer> {
+public abstract class Property<T> implements Algorithm<T> {
     String name;
     T value;
 

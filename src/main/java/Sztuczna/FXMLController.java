@@ -42,6 +42,7 @@ public class FXMLController implements Initializable {
         propertiesManager.addProperty("NumberOfWordsInArticle");
         propertiesManager.addProperty("NumOfWordsDefinedByUser");
         propertiesManager.addProperty("SelectedWordFromBeginingOfText");
+        propertiesManager.addProperty("FrequencyOfDictionaryWords");
         System.out.println(propertiesManager.propertiesToString());
 
     }

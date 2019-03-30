@@ -8,6 +8,8 @@ public class PropertiesFactory {
             return new NumberOfWordsInArticle(propertiesManager);
         } else if (propertyName == "NumOfWordsDefinedByUser") {
             return new NumOfWordsDefinedByUser(propertiesManager);
+        } else if (propertyName == "FrequencyOfDictionaryWords") {
+            return new FrequencyOfDictionaryWords(propertiesManager);
         } else if (propertyName == "SelectedWordFromBeginingOfText") {
             SelectedWordFromBeginingOfText s = new SelectedWordFromBeginingOfText(propertiesManager);
             // This is just a mock!
