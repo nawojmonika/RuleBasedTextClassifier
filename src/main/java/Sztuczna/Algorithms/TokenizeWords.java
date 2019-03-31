@@ -11,13 +11,7 @@ import static java.util.stream.Collectors.toCollection;
 
 public class TokenizeWords implements Algorithm {
 
-    ArrayList<String> stopList = new ArrayList<>( Arrays.asList(
-            "the",
-            "in",
-            "since",
-            "and",
-            "for"
-    ));
+
 
     @Override
     public ArrayList<String> perform(Article a) {

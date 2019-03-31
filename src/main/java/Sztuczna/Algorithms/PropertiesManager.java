@@ -1,11 +1,11 @@
 package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.AttributeType;
+
 
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
+
+
 import java.util.stream.Collectors;
 
 public class PropertiesManager {
