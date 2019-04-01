@@ -54,7 +54,7 @@ public class PropertiesManager {
     public void fillUserPropertiesArticlesId() {
         this.userProperties = new HashMap<>();
         for (Article a : articles) {
-            userProperties.put(a.getOldId(), new HashSet<>());
+            userProperties.put(a.getOldId(), new LinkedHashSet<>());
         }
     }
 
