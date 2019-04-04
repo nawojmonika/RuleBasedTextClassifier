@@ -43,8 +43,11 @@ public class FXMLController implements Initializable {
         propertiesManager.addProperty("NumOfWordsDefinedByUser");
         propertiesManager.addProperty("SelectedWordFromBeginingOfText");
         propertiesManager.addProperty("FrequencyOfDictionaryWords");
-        System.out.println(propertiesManager.propertiesToString());
 
+        int defaultK = 3;
+
+        KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
+        System.out.println(knn.perform());
     }
 
     @Override

@@ -25,6 +25,8 @@ public class PropertiesManager {
         fillUserPropertiesArticlesId();
     }
 
+
+
     public void fillTheWordProperties() {
         this.wordsDictionary = new HashMap<>();
         for (Article article : articles) {
@@ -85,5 +87,13 @@ public class PropertiesManager {
             articlesProperties.append(System.lineSeparator());
         }
         return  articlesProperties.toString();
+    }
+
+    public Map<String, Set<Property>> getUserProperties() {
+        return userProperties;
+    }
+
+    public ArrayList<Article> getArticles() {
+        return articles;
     }
 }
