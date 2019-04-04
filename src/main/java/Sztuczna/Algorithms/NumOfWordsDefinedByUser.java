@@ -2,10 +2,8 @@ package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class NumOfWordsDefinedByUser extends Property<Integer> {
     Set<String> wordsDefinedByUser = new HashSet<>();
@@ -15,13 +13,16 @@ public class NumOfWordsDefinedByUser extends Property<Integer> {
     }
 
     public void setWordsDefinedByUser(Set<String> wordsDefinedByUser) {
-        wordsDefinedByUser = wordsDefinedByUser;
+        this.wordsDefinedByUser = wordsDefinedByUser;
     }
 
     @Override
     public Integer perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
-        this.setValue((int)wordsInArticle.stream().filter(wordFromArticle -> wordsDefinedByUser.contains(wordFromArticle)).count());
+        this.setValue(wordsInArticle
+                .stream()
+                .filter(wordFromArticle -> wordsDefinedByUser.contains(wordFromArticle))
+                .collect(Collectors.reducing(0, e -> 1, Integer::sum)));
         return this.getValue();
     }
 }

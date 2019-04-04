@@ -16,7 +16,7 @@ public class ClassifiedArticle {
     }
 
     public boolean wasClassifiedProperly() {
-        return this.className.contains(this.article.getCountryLabel()) || this.article.getCountryLabel().contains(this.className);
+        return this.className.contains(this.article.getCountryLabel());
     }
 
     public String toString() {

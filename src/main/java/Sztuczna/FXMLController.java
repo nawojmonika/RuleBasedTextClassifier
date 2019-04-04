@@ -2,10 +2,10 @@ package Sztuczna;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 import Sztuczna.Algorithms.*;
 import javafx.event.ActionEvent;
@@ -33,16 +33,24 @@ public class FXMLController implements Initializable {
             if (fileEntry.isFile()) {
                 if (fileEntry.getName().contains("reut2")) {
                     articles.addAll(l.loadFile(fileEntry));
-                };
+                }
+                ;
             }
         }
 
         PropertiesManager propertiesManager = new PropertiesManager(articles);
         propertiesManager.addProperty("NumOfWordsInArticleAndDictionary");
         propertiesManager.addProperty("NumberOfWordsInArticle");
-        propertiesManager.addProperty("NumOfWordsDefinedByUser");
-        propertiesManager.addProperty("SelectedWordFromBeginingOfText");
         propertiesManager.addProperty("FrequencyOfDictionaryWords");
+
+        propertiesManager.addPropertyWithArguments("SelectedWordFromBeginingOfText", "SelecteUsaWordFromBeginningOfText", new ArrayList<String>(Arrays.asList("usa")));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPlaces", new ArrayList<>(loadAllWordsFromFile("all-places-strings.lc.txt")));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllTopics", new ArrayList<>(loadAllWordsFromFile("all-topics-strings.lc.txt")));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllOrgs", new ArrayList<>(loadAllWordsFromFile("all-orgs-strings.lc.txt")));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllExchange", new ArrayList<>(loadAllWordsFromFile("all-exchanges-strings.lc.txt")));
+
+        // System.out.println(propertiesManager.propertiesToString());
 
         int defaultK = 3;
 
@@ -53,5 +61,16 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+
+    public List<String> loadAllWordsFromFile(String fileName) {
+        Path p = Paths.get(System.getProperty("user.dir"),"assets", fileName);
+        try {
+            return Files.readAllLines(p);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("ERROR");
+        return new ArrayList<String>();
     }
 }

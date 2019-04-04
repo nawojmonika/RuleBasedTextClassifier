@@ -2,6 +2,7 @@ package Sztuczna.Algorithms;
 
 public abstract class Property<T extends Number> implements Algorithm<T> {
     String name;
+    String customLabel = null;
     T value;
 
     Property(String name, T value) {
@@ -18,8 +19,11 @@ public abstract class Property<T extends Number> implements Algorithm<T> {
     public void setValue(T value) {
         this.value = value;
     }
+    public void setCustomLabel(String label) {
+        this.customLabel = label;
+    }
 
     public String toString() {
-        return "PropertyName: " + this.name + " value: " + this.value;
+        return "PropertyName: " + this.name + this.customLabel != null ? " Custom label: " + this.customLabel : "" + "value: " + this.value;
     }
 }

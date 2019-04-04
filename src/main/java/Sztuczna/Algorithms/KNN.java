@@ -23,6 +23,7 @@ public class KNN {
     public double perform() {
         List<Article> testingArticles = this.articles.subList(0, (int)(this.articles.size() * 0.7));
         List<Article> learingArticles = this.articles.subList(testingArticles.size(), this.articles.size());
+        int i = 0;
 
         for (Article testingArticle : testingArticles) {
             Set<Property> singleTestingProperty = this.userProperties.get(testingArticle.getOldId());
@@ -40,7 +41,6 @@ public class KNN {
                     .limit(this.K)
                     .forEach(stringDoublePair -> {
                         if (countedDistances.containsKey(stringDoublePair.getKey())) {
-
                             Integer toIncrement = countedDistances.get(stringDoublePair.getKey());
                             toIncrement++;
                             countedDistances.put(stringDoublePair.getKey(), toIncrement);
@@ -57,7 +57,10 @@ public class KNN {
                     .get()
                     .getKey();
             this.classifiedArticles.add(new ClassifiedArticle(testingArticle, classifiedCountryId));
+            i++;
+            System.out.println(i);
         }
+        // this.classifiedArticles.stream().forEach(classifiedArticle -> System.out.println(classifiedArticle.toString()));
 
         long TP = this.classifiedArticles.stream().filter(ClassifiedArticle::wasClassifiedProperly).count();
         return (double)((double)TP / (double)testingArticles.size());

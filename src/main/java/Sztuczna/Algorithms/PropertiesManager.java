@@ -70,6 +70,17 @@ public class PropertiesManager {
         }
     }
 
+    public void addPropertyWithArguments(String property, String customLabel, ArrayList<String> arguments) {
+        for (Article a : articles) {
+            Property p = PropertiesFactory.buildPropertyWithArguments(property, arguments, this);
+            p.setCustomLabel(customLabel);
+            Set<Property> propertiesHandler = userProperties.get(a.getOldId());
+            propertiesHandler.add(p);
+            p.perform(a);
+            userProperties.put(a.getOldId(), propertiesHandler);
+        }
+    }
+
     public Map<String, Integer> getWordsDictionary() {
         return this.wordsDictionary;
     }
