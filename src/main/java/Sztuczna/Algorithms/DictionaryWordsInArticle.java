@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class NumOfWordsInArticleAndDictionary extends Property<Integer> {
+public class DictionaryWordsInArticle extends Property<Integer> {
     Map<String, Integer> words;
 
-    public NumOfWordsInArticleAndDictionary(PropertiesManager pm) {
-        super("NumOfWordsInArticleAndDictionary", 0);
+    public DictionaryWordsInArticle(PropertiesManager pm) {
+        super("DictionaryWordsInArticle", 0);
         this.words = pm.getWordsDictionary();
     }
 

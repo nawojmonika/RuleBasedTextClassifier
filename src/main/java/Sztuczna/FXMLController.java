@@ -39,7 +39,7 @@ public class FXMLController implements Initializable {
         }
 
         PropertiesManager propertiesManager = new PropertiesManager(articles);
-        propertiesManager.addProperty("NumOfWordsInArticleAndDictionary");
+        propertiesManager.addProperty("DictionaryWordsInArticle");
         propertiesManager.addProperty("NumberOfWordsInArticle");
         propertiesManager.addProperty("FrequencyOfDictionaryWords");
 
@@ -49,8 +49,6 @@ public class FXMLController implements Initializable {
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllTopics", new ArrayList<>(loadAllWordsFromFile("all-topics-strings.lc.txt")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllOrgs", new ArrayList<>(loadAllWordsFromFile("all-orgs-strings.lc.txt")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllExchange", new ArrayList<>(loadAllWordsFromFile("all-exchanges-strings.lc.txt")));
-
-        // System.out.println(propertiesManager.propertiesToString());
 
         int defaultK = 3;
 

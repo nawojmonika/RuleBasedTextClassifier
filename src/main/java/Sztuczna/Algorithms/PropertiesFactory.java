@@ -2,12 +2,11 @@ package Sztuczna.Algorithms;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public class PropertiesFactory {
     public static Property buildProperty(String propertyName, PropertiesManager propertiesManager) {
-        if (propertyName == "NumOfWordsInArticleAndDictionary") {
-            return new NumOfWordsInArticleAndDictionary(propertiesManager);
+        if (propertyName == "DictionaryWordsInArticle") {
+            return new DictionaryWordsInArticle(propertiesManager);
         } else if (propertyName == "NumberOfWordsInArticle") {
             return new NumberOfWordsInArticle(propertiesManager);
         } else if (propertyName == "FrequencyOfDictionaryWords") {
