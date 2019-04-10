@@ -20,7 +20,7 @@ public class KNN {
         this.K = K;
     }
 
-    public double perform() {
+    public double perform(Metric metric) {
         List<Article> testingArticles = this.articles.subList(0, (int)(this.articles.size() * 0.7));
         List<Article> learingArticles = this.articles.subList(testingArticles.size(), this.articles.size());
         int i = 0;
@@ -31,7 +31,7 @@ public class KNN {
 
             learingArticles.stream().forEach(article -> {
                 Set<Property> propertToDistance = this.userProperties.get(article.getOldId());
-                distances.add(new Pair<>(article.getCountryLabel(), calculateDistance(singleTestingProperty, propertToDistance)));
+                distances.add(new Pair<>(article.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance)));
             });
 
             Map<String, Integer> countedDistances = new HashMap<>();
@@ -66,18 +66,7 @@ public class KNN {
         return (double)((double)TP / (double)testingArticles.size());
     }
 
-    private Double calculateDistance(Set<Property> set1, Set<Property> set2) {
-        Double sum = 0.0;
 
-        Iterator<Property> p1Iterator = set1.iterator();
-        Iterator<Property> p2Iterator = set2.iterator();
-
-
-        while (p1Iterator.hasNext() && p2Iterator.hasNext()) {
-            sum = sum + Math.pow(p1Iterator.next().getValue().doubleValue() - p2Iterator.next().getValue().doubleValue(), 2.0);
-        }
-        return sum;
-    }
 
     public void setK(Integer k) {
         K = k;
