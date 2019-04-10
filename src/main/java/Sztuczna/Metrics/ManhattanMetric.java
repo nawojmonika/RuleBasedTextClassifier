@@ -14,7 +14,9 @@ public class ManhattanMetric implements Metric {
 
 
         while (p1Iterator.hasNext() && p2Iterator.hasNext()) {
-            dist += Math.abs(p1Iterator.next().getValue().doubleValue() - p2Iterator.next().getValue().doubleValue());
+            Double x = p1Iterator.next().getValue().doubleValue();
+            Double y = p2Iterator.next().getValue().doubleValue();
+            dist += Math.abs(x - y);
         }
         return dist;
     }
