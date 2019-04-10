@@ -16,8 +16,8 @@ public class EukidesMetric implements Metric {
         while (p1Iterator.hasNext() && p2Iterator.hasNext()) {
             Double x = p1Iterator.next().getValue().doubleValue();
             Double y = p2Iterator.next().getValue().doubleValue();
-            dist += Math.pow( x - y, 2.0);
+            dist += Math.sqrt((Math.pow( x - y, 2.0)));
         }
-        return Math.sqrt(dist);
+        return dist;
     }
 }
