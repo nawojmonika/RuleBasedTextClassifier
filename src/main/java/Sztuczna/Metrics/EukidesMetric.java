@@ -1,4 +1,6 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Metrics;
+
+import Sztuczna.Algorithms.Property;
 
 import java.util.Iterator;
 import java.util.Set;

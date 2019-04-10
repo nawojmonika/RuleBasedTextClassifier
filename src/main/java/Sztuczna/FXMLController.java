@@ -53,7 +53,7 @@ public class FXMLController implements Initializable {
         int defaultK = 3;
 
         KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
-        System.out.println(knn.perform());
+//        System.out.println(knn.perform());
     }
 
     @Override

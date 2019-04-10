@@ -1,11 +1,10 @@
 package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
+import Sztuczna.Metrics.Metric;
 import javafx.util.Pair;
 
 import java.util.*;
-
-import static java.lang.System.*;
 
 public class KNN {
     ArrayList<Article> articles;
