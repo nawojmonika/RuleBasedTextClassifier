@@ -5,7 +5,7 @@ import Sztuczna.Algorithms.Property;
 import java.util.Iterator;
 import java.util.Set;
 
-public class EukidesMetric implements Metric {
+public class ManhattanMetric implements Metric {
     public Double calculateDistance(Set<Property> set1, Set<Property> set2) {
         Double sum = 0.0;
 
@@ -14,8 +14,8 @@ public class EukidesMetric implements Metric {
 
 
         while (p1Iterator.hasNext() && p2Iterator.hasNext()) {
-            sum = sum + Math.pow(p1Iterator.next().getValue().doubleValue() - p2Iterator.next().getValue().doubleValue(), 2.0);
+            sum = sum + Math.abs(p1Iterator.next().getValue().doubleValue() - p2Iterator.next().getValue().doubleValue());
         }
-        return Math.sqrt(sum);
+        return sum;
     }
 }
