@@ -8,7 +8,8 @@ public class NGramSimilarity implements TextSimilarityMetric {
         prop1.toLowerCase();
         prop2.toLowerCase();
         for (int i = 0; i < N - n + 1; i++) {
-            sum += prop1.substring(i, i + n) == prop2.substring(i, i + n) ? 1 : 0;
+            String substring = prop1.substring(i, i + n);
+            sum += prop2.indexOf(substring) != -1 ? 1 : 0;
         }
         Double sim = (1 / N - n + 1) * sum;
         return sim;
