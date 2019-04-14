@@ -2,6 +2,8 @@ package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
 import Sztuczna.Metrics.HandleDifference;
+import Sztuczna.Metrics.Metric;
+import Sztuczna.Metrics.TextSimilarityMetric;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -19,7 +21,7 @@ public class KNN {
         this.K = K;
     }
 
-    public double perform(HandleDifference metric) {
+    public double perform(Metric metric, TextSimilarityMetric similarityMetric) {
         List<Article> testingArticles = this.articles.subList(0, (int)(this.articles.size() * 0.7));
         List<Article> learingArticles = this.articles.subList(testingArticles.size(), this.articles.size());
         int i = 0;
@@ -30,7 +32,7 @@ public class KNN {
 
             learingArticles.stream().forEach(article -> {
                 Set<Property> propertToDistance = this.userProperties.get(article.getOldId());
-                distances.add(new Pair<>(article.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance)));
+                distances.add(new Pair<>(article.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance, similarityMetric)));
             });
 
             Map<String, Integer> countedDistances = new HashMap<>();
