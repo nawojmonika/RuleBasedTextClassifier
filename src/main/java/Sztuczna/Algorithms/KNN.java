@@ -1,7 +1,7 @@
 package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
-import Sztuczna.Metrics.Metric;
+import Sztuczna.Metrics.HandleDifference;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -19,7 +19,7 @@ public class KNN {
         this.K = K;
     }
 
-    public double perform(Metric metric) {
+    public double perform(HandleDifference metric) {
         List<Article> testingArticles = this.articles.subList(0, (int)(this.articles.size() * 0.7));
         List<Article> learingArticles = this.articles.subList(testingArticles.size(), this.articles.size());
         int i = 0;

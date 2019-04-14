@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ChebyshevMetric implements Metric {
+public class ChebyshevMetric extends HandleDifference implements Metric {
     public Double calculateDistance(Set<Property> set1, Set<Property> set2) {
         ArrayList<Double> distances = new ArrayList<Double>();
         Iterator<Property> p1Iterator = set1.iterator();

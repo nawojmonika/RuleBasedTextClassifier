@@ -5,7 +5,7 @@ import Sztuczna.Algorithms.Property;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ManhattanMetric implements Metric {
+public class ManhattanMetric extends HandleDifference implements Metric{
     public Double calculateDistance(Set<Property> set1, Set<Property> set2) {
         Double dist = 0.0;
 
