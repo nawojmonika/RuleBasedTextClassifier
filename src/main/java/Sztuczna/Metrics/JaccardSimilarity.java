@@ -11,10 +11,12 @@ public class JaccardSimilarity implements TextSimilarityMetric {
         for (int i = 0; i < N - n + 1 ; i++) {
             String substring1 = prop1.substring(i, i + n);
             String substring2 = prop2.substring(i, i + n);
-            unshared += prop2.indexOf(substring1) != -1 ? 0 : 1;
             unshared += prop1.indexOf(substring2) != -1 ? 0 : 1;
             if(prop2.indexOf(substring1) != -1){
                 common += 1;
+            }
+            else {
+                unshared += 1;
             }
         }
         Double sim = unshared / common;
