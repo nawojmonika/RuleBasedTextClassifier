@@ -1,9 +1,22 @@
 package Sztuczna.Algorithms;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class PropertiesFactory {
+    public static FeldmanParser fp = new FeldmanParser(Paths.get(System.getProperty("user.dir"),"assets", "feldman-cia-worldfactbook-data.txt"));
+    public static Map<String, ArrayList<String>> wordsByCountry = new LinkedHashMap<String, ArrayList<String>>() {{
+        put("Germany", fp.getAllParsedDataForCountry("Germany"));
+        put("United States", fp.getAllParsedDataForCountry("United States"));
+        put("France", fp.getAllParsedDataForCountry("France"));
+        put("United Kingdom", fp.getAllParsedDataForCountry("United Kingdom"));
+        put("Canada", fp.getAllParsedDataForCountry("Canada"));
+        put("Japan", fp.getAllParsedDataForCountry("Japan"));
+    }};
+
     public static Property buildProperty(String propertyName, PropertiesManager propertiesManager) {
         if (propertyName == "DictionaryWordsInArticle") {
             return new DictionaryWordsInArticle(propertiesManager);
@@ -11,7 +24,10 @@ public class PropertiesFactory {
             return new NumberOfWordsInArticle(propertiesManager);
         } else if (propertyName == "FrequencyOfDictionaryWords") {
             return new FrequencyOfDictionaryWords(propertiesManager);
+        } else if (propertyName == "CountryByNumOfWordsDefinedByUser") {
+            return new CountryByNumOfWordsDefinedByUser(propertiesManager, wordsByCountry);
         }
+
         return null;
     }
     public static Property buildPropertyWithArguments(String propertyName, ArrayList<String> arguments, PropertiesManager propertiesManager) {

@@ -8,8 +8,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
-import Sztuczna.Metrics.ChebyshevMetric;
-import Sztuczna.Metrics.ExtendedNGramSimilarity;
+import Sztuczna.Metrics.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,22 +39,32 @@ public class FXMLController implements Initializable {
             }
         }
 
+        Path p = Paths.get(System.getProperty("user.dir"),"assets", "feldman-cia-worldfactbook-data.txt");
+        FeldmanParser fp = new FeldmanParser(p);
+
         PropertiesManager propertiesManager = new PropertiesManager(articles);
         propertiesManager.addProperty("DictionaryWordsInArticle");
         propertiesManager.addProperty("NumberOfWordsInArticle");
         propertiesManager.addProperty("FrequencyOfDictionaryWords");
 
+        propertiesManager.addProperty("CountryByNumOfWordsDefinedByUser");
         propertiesManager.addPropertyWithArguments("SelectedWordFromBeginingOfText", "SelecteUsaWordFromBeginningOfText", new ArrayList<String>(Arrays.asList("usa")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPlaces", new ArrayList<>(loadAllWordsFromFile("all-places-strings.lc.txt")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllTopics", new ArrayList<>(loadAllWordsFromFile("all-topics-strings.lc.txt")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllOrgs", new ArrayList<>(loadAllWordsFromFile("all-orgs-strings.lc.txt")));
         propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllExchange", new ArrayList<>(loadAllWordsFromFile("all-exchanges-strings.lc.txt")));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "GermanyKeyWordsNum", fp.getAllParsedDataForCountry("Germany"));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "UnitedStatesWordsNum", fp.getAllParsedDataForCountry("United States"));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "FranceWordsNum", fp.getAllParsedDataForCountry("France"));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "UnitedKingdomWordsNum", fp.getAllParsedDataForCountry("United Kingdom"));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "CanadaWordsNum", fp.getAllParsedDataForCountry("Canada"));
+        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "JapanWordsNum", fp.getAllParsedDataForCountry("Japan"));
 
-        int defaultK = 3;
+        int defaultK = 6;
 
         KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
-        System.out.println(knn.perform(new ChebyshevMetric(), new ExtendedNGramSimilarity()));
+        System.out.println(knn.perform(new ChebyshevMetric(), new SimpleStringCompare()));
     }
 
     @Override

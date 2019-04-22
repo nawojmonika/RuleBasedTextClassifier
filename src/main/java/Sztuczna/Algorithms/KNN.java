@@ -8,6 +8,9 @@ import javafx.util.Pair;
 
 import java.util.*;
 
+import static java.util.Collections.reverseOrder;
+import static java.util.Comparator.comparing;
+
 public class KNN {
     ArrayList<Article> articles;
     Map<UUID, ArrayList<Property>> userProperties;
@@ -38,7 +41,7 @@ public class KNN {
             Map<String, Integer> countedDistances = new HashMap<>();
 
             distances.stream()
-                    .sorted(Comparator.comparing(Pair::getValue))
+                    .sorted(comparing(Pair::getValue))
                     .limit(this.K)
                     .forEach(stringDoublePair -> {
                         if (countedDistances.containsKey(stringDoublePair.getKey())) {
@@ -61,7 +64,6 @@ public class KNN {
             i++;
             System.out.println(i);
         }
-        // this.classifiedArticles.stream().forEach(classifiedArticle -> System.out.println(classifiedArticle.toString()));
 
         long TP = this.classifiedArticles.stream().filter(ClassifiedArticle::wasClassifiedProperly).count();
         return (double)((double)TP / (double)testingArticles.size());
