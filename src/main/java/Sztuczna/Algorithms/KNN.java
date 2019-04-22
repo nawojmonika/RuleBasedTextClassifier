@@ -10,12 +10,12 @@ import java.util.*;
 
 public class KNN {
     ArrayList<Article> articles;
-    Map<String, Set<Property>> userProperties;
+    Map<UUID, ArrayList<Property>> userProperties;
     Integer K = 1;
 
     ArrayList<ClassifiedArticle> classifiedArticles = new ArrayList<>();
 
-    public KNN(ArrayList<Article> articles, Map<String, Set<Property>> userProperties, Integer K) {
+    public KNN(ArrayList<Article> articles, Map<UUID, ArrayList<Property>> userProperties, Integer K) {
         this.articles = articles;
         this.userProperties = userProperties;
         this.K = K;
@@ -27,12 +27,12 @@ public class KNN {
         int i = 0;
 
         for (Article testingArticle : testingArticles) {
-            Set<Property> singleTestingProperty = this.userProperties.get(testingArticle.getOldId());
+            ArrayList<Property> singleTestingProperty = this.userProperties.get(testingArticle.getUniqueId());
             ArrayList<Pair<String, Double>> distances = new ArrayList<>();
 
-            learingArticles.stream().forEach(article -> {
-                Set<Property> propertToDistance = this.userProperties.get(article.getOldId());
-                distances.add(new Pair<>(article.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance, similarityMetric)));
+            learingArticles.stream().forEach(learningArticle -> {
+                ArrayList<Property> propertToDistance = this.userProperties.get(learningArticle.getUniqueId());
+                distances.add(new Pair<>(learningArticle.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance, similarityMetric)));
             });
 
             Map<String, Integer> countedDistances = new HashMap<>();

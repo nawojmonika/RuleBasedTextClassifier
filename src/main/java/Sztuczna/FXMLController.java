@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
+import Sztuczna.Metrics.ChebyshevMetric;
+import Sztuczna.Metrics.ExtendedNGramSimilarity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,7 +55,7 @@ public class FXMLController implements Initializable {
         int defaultK = 3;
 
         KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
-//        System.out.println(knn.perform());
+        System.out.println(knn.perform(new ChebyshevMetric(), new ExtendedNGramSimilarity()));
     }
 
     @Override

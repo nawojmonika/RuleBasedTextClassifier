@@ -3,6 +3,7 @@ package Sztuczna;
 import Sztuczna.Algorithms.Algorithm;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +11,7 @@ public class Article {
     private String title;
     private String body;
     private String oldId;
+    private UUID uniqueId;
     private String countryLabel;
 
     private ArrayList<String> algorithmsWords = new ArrayList<>();
@@ -18,6 +20,7 @@ public class Article {
         this.title = title;
         this.body = body;
         this.oldId = oldId;
+        this.uniqueId = UUID.randomUUID();
         this.countryLabel = countryLabel;
     }
 
@@ -32,6 +35,7 @@ public class Article {
     public String getOldId() {
         return oldId;
     }
+    public UUID getUniqueId() { return this.uniqueId; }
 
     public String getCountryLabel() {
         return countryLabel;

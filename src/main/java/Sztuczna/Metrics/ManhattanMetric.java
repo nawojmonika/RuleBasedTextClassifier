@@ -2,11 +2,12 @@ package Sztuczna.Metrics;
 
 import Sztuczna.Algorithms.Property;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
 public class ManhattanMetric extends HandleDifference implements Metric{
-    public Double calculateDistance(Set<Property> set1, Set<Property> set2, TextSimilarityMetric metric) {
+    public Double calculateDistance(ArrayList<Property> set1, ArrayList<Property> set2, TextSimilarityMetric metric) {
         Double dist = 0.0;
 
         Iterator<Property> p1Iterator = set1.iterator();

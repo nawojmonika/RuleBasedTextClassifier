@@ -24,6 +24,11 @@ public abstract class Property<T> implements Algorithm<T> {
     }
 
     public String toString() {
-        return "PropertyName: " + this.name + this.customLabel != null ? " Custom label: " + this.customLabel : "" + "value: " + this.value;
+        String name = "PropertyName: " + this.name;
+        if (this.customLabel != null) {
+            name += " Custom label: " + this.customLabel;
+        }
+        name += " value: " + this.value;
+        return name;
     }
 }

@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PropertiesManager {
-    Map<String, Set<Property>> userProperties;
+    Map<UUID, ArrayList<Property>> userProperties;
     Map<String, Integer> wordsDictionary;
     ArrayList<Article> articles;
 
@@ -56,17 +56,17 @@ public class PropertiesManager {
     public void fillUserPropertiesArticlesId() {
         this.userProperties = new HashMap<>();
         for (Article a : articles) {
-            userProperties.put(a.getOldId(), new LinkedHashSet<>());
+            userProperties.put(a.getUniqueId(), new ArrayList<>());
         }
     }
 
     public void addProperty(String property) {
         for (Article a : articles) {
             Property p = PropertiesFactory.buildProperty(property, this);
-            Set<Property> propertiesHandler = userProperties.get(a.getOldId());
+            ArrayList<Property> propertiesHandler = userProperties.get(a.getUniqueId());
             propertiesHandler.add(p);
             p.perform(a);
-            userProperties.put(a.getOldId(), propertiesHandler);
+            userProperties.put(a.getUniqueId(), propertiesHandler);
         }
     }
 
@@ -74,10 +74,10 @@ public class PropertiesManager {
         for (Article a : articles) {
             Property p = PropertiesFactory.buildPropertyWithArguments(property, arguments, this);
             p.setCustomLabel(customLabel);
-            Set<Property> propertiesHandler = userProperties.get(a.getOldId());
+            ArrayList<Property> propertiesHandler = userProperties.get(a.getUniqueId());
             propertiesHandler.add(p);
             p.perform(a);
-            userProperties.put(a.getOldId(), propertiesHandler);
+            userProperties.put(a.getUniqueId(), propertiesHandler);
         }
     }
 
@@ -87,7 +87,7 @@ public class PropertiesManager {
 
     public String propertiesToString() {
         StringBuilder articlesProperties = new StringBuilder();
-        for (Map.Entry<String, Set<Property>> userProperties : userProperties.entrySet()) {
+        for (Map.Entry<UUID, ArrayList<Property>> userProperties : userProperties.entrySet()) {
             articlesProperties.append("ID: " + userProperties.getKey());
             articlesProperties.append(System.lineSeparator());
             for (Property singleProperty : userProperties.getValue()) {
@@ -100,7 +100,7 @@ public class PropertiesManager {
         return  articlesProperties.toString();
     }
 
-    public Map<String, Set<Property>> getUserProperties() {
+    public Map<UUID, ArrayList<Property>> getUserProperties() {
         return userProperties;
     }
 

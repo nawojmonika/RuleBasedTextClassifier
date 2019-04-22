@@ -11,6 +11,9 @@ public class HandleDifference {
     if(val1 instanceof String && val2 instanceof String){
       return metric.calculateSimilarity((String) val1, (String) val2);
     }
+    if (val1 instanceof Integer && val2 instanceof Integer) {
+        return ((Integer) val1).doubleValue() - ((Integer) val2).doubleValue();
+    }
     return (Double) val1 - (Double) val2;
   }
 }
