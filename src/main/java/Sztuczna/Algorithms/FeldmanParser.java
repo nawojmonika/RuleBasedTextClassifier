@@ -61,10 +61,19 @@ public class FeldmanParser {
         for (String countryData : listForCountry) {
             Matcher matcher = findBraces.matcher(countryData);
             while (matcher.find()) {
-                data.addAll(Arrays.asList(matcher.group(1).replace("\"", "").split(",")));
+                if (matcher.group(1) != null){
+                    data.addAll(Arrays.asList(matcher.group(1).replace("\"", "").split(",")));
+                }
             }
         }
-        System.out.println(Arrays.toString(data.toArray()));
         return data;
+    }
+
+    public ArrayList<String> getAllParsedDataForCountry(String countryName) {
+        ArrayList<String> wordsForCountry = new ArrayList<>();
+        for(FeldmanProperties property : FeldmanProperties.values()) {
+            wordsForCountry.addAll(this.getParsedData(countryName, property));
+        }
+        return wordsForCountry;
     }
 }
