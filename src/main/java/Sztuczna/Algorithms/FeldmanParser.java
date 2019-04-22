@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class FeldmanParser {
     ArrayList<String> parsedWordFactLines = null;
@@ -15,9 +19,10 @@ public class FeldmanParser {
 
     public FeldmanParser(Path fullPath) {
         this.fullPath = fullPath;
+        this.parsedWordFactLines = getParsedWordFactLines();
     }
 
-    public ArrayList<String> getParsedWOrdFactLines() {
+    private ArrayList<String> getParsedWordFactLines() {
         List<String> wordFactLines = null;
         try {
             wordFactLines = Files.readAllLines(this.fullPath);
@@ -27,19 +32,39 @@ public class FeldmanParser {
         ArrayList<String> parsedWordFactLines = new ArrayList<>();
 
         String currentFact = "";
+        boolean startedParsing = false;
         for (int lineIndex = 0 ; lineIndex < wordFactLines.size(); lineIndex++) {
             String currentSentenceToParse = wordFactLines.get(lineIndex);
             if (currentSentenceToParse.startsWith("bgfact")) {
-                if (!currentSentenceToParse.endsWith("=")) {
-                    currentFact += currentSentenceToParse;
+                startedParsing = true;
+                if (startedParsing) {
                     parsedWordFactLines.add(currentFact);
                     currentFact = "";
+                    currentFact += currentSentenceToParse.replace("=", "");
                 } else {
-                    String sentenceWithoutEqualSign = currentSentenceToParse.substring(0, currentSentenceToParse.length() - 1);
-                    currentFact += sentenceWithoutEqualSign;
+                    currentFact += currentSentenceToParse.replace("=", "");
                 }
+            } else if (startedParsing){
+                currentFact += currentSentenceToParse.replace("=", "");
             }
         }
         return parsedWordFactLines;
+    }
+
+    public List<String> getParsedData(String countryName, FeldmanProperties property) {
+        List<String> listForCountry = this.parsedWordFactLines
+                .stream()
+                .filter(s -> s.startsWith("bgfact(\""+countryName+"\",\"" + property.getPropertyName()))
+                .collect(Collectors.toList());
+        ArrayList<String> data = new ArrayList<>();
+        Pattern findBraces = Pattern.compile("\\[(\\\".*\\\")*\\]");
+        for (String countryData : listForCountry) {
+            Matcher matcher = findBraces.matcher(countryData);
+            while (matcher.find()) {
+                data.addAll(Arrays.asList(matcher.group(1).replace("\"", "").split(",")));
+            }
+        }
+        System.out.println(Arrays.toString(data.toArray()));
+        return data;
     }
 }
