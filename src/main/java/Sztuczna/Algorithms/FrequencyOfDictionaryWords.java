@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class FrequencyOfDictionaryWords extends Property<Double> {
-    Map<String, Integer> words;
+    Map<String, Double> words;
     PropertiesManager pm;
 
     public FrequencyOfDictionaryWords(PropertiesManager pm) {

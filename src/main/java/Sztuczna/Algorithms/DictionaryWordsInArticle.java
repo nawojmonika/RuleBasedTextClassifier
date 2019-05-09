@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DictionaryWordsInArticle extends Property<Integer> {
-    Map<String, Integer> words;
+    Map<String, Double> words;
 
     public DictionaryWordsInArticle(PropertiesManager pm) {
         super("DictionaryWordsInArticle", 0);

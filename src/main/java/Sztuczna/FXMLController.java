@@ -38,33 +38,42 @@ public class FXMLController implements Initializable {
                 ;
             }
         }
+        List<Article> testingArticles = articles.subList(0, (int)(articles.size() * 0.7));
+        List<Article> learingArticles = articles.subList(testingArticles.size(), articles.size());
+        System.out.println(learingArticles.size());
 
-        Path p = Paths.get(System.getProperty("user.dir"),"assets", "feldman-cia-worldfactbook-data.txt");
-        FeldmanParser fp = new FeldmanParser(p);
+        PropertiesManager propertiesManager = new PropertiesManager(learingArticles, true);
+        // System.out.println(Arrays.toString(propertiesManager.getWordsDictionary().entrySet().toArray()));
+        System.out.println(propertiesManager.getWordsDictionary().entrySet().toString());
+        // propertiesManager.writeWordDictionary();
+        // propertiesManager.addProperty("DictionaryWordsInArticle");
+        // propertiesManager.addProperty("NumberOfWordsInArticle");
+        // propertiesManager.addProperty("FrequencyOfDictionaryWords");
 
-        PropertiesManager propertiesManager = new PropertiesManager(articles);
-        propertiesManager.addProperty("DictionaryWordsInArticle");
-        propertiesManager.addProperty("NumberOfWordsInArticle");
-        propertiesManager.addProperty("FrequencyOfDictionaryWords");
+        // // ilosć słów w 20% tekstu
+        // // słów kluczowych w tekście
+        // // słowo kluczowe najczęściej pojawiające się w tekście
 
-        propertiesManager.addProperty("CountryByNumOfWordsDefinedByUser");
-        propertiesManager.addPropertyWithArguments("SelectedWordFromBeginingOfText", "SelecteUsaWordFromBeginningOfText", new ArrayList<String>(Arrays.asList("usa")));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPlaces", new ArrayList<>(loadAllWordsFromFile("all-places-strings.lc.txt")));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllTopics", new ArrayList<>(loadAllWordsFromFile("all-topics-strings.lc.txt")));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllOrgs", new ArrayList<>(loadAllWordsFromFile("all-orgs-strings.lc.txt")));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllExchange", new ArrayList<>(loadAllWordsFromFile("all-exchanges-strings.lc.txt")));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "GermanyKeyWordsNum", fp.getAllParsedDataForCountry("Germany"));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "UnitedStatesWordsNum", fp.getAllParsedDataForCountry("United States"));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "FranceWordsNum", fp.getAllParsedDataForCountry("France"));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "UnitedKingdomWordsNum", fp.getAllParsedDataForCountry("United Kingdom"));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "CanadaWordsNum", fp.getAllParsedDataForCountry("Canada"));
-        propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "JapanWordsNum", fp.getAllParsedDataForCountry("Japan"));
+        // // pierwsze, ostatnie słowo kluczowe
 
-        int defaultK = 6;
+        // propertiesManager.addProperty("CountryByNumOfWordsDefinedByUser");
+        // propertiesManager.addPropertyWithArguments("SelectedWordFromBeginingOfText", "SelecteUsaWordFromBeginningOfText", new ArrayList<String>(Arrays.asList("usa")));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPlaces", new ArrayList<>(loadAllWordsFromFile("all-places-strings.lc.txt")));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllTopics", new ArrayList<>(loadAllWordsFromFile("all-topics-strings.lc.txt")));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllOrgs", new ArrayList<>(loadAllWordsFromFile("all-orgs-strings.lc.txt")));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllExchange", new ArrayList<>(loadAllWordsFromFile("all-exchanges-strings.lc.txt")));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "GermanyKeyWordsNum", fp.getAllParsedDataForCountry("Germany"));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "UnitedStatesWordsNum", fp.getAllParsedDataForCountry("United States"));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "FranceWordsNum", fp.getAllParsedDataForCountry("France"));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "UnitedKingdomWordsNum", fp.getAllParsedDataForCountry("United Kingdom"));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "CanadaWordsNum", fp.getAllParsedDataForCountry("Canada"));
+        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "JapanWordsNum", fp.getAllParsedDataForCountry("Japan"));
 
-        KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
-        System.out.println(knn.perform(new ChebyshevMetric(), new SimpleStringCompare()));
+        // int defaultK = 6;
+
+        // KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
+        // System.out.println(knn.perform(new ChebyshevMetric(), new SimpleStringCompare()));
     }
 
     @Override

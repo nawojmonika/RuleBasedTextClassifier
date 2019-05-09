@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class SelectedWordFromBeginingOfText extends Property<Integer> {
-    Map<String, Integer> words;
+    Map<String, Double> words;
     private String selectedText = "";
 
     public SelectedWordFromBeginingOfText(PropertiesManager pm) {

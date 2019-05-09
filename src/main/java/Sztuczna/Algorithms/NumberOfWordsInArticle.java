@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class NumberOfWordsInArticle extends Property<Integer> {
-    Map<String, Integer> words;
+    Map<String, Double> words;
 
     public NumberOfWordsInArticle(PropertiesManager pm) {
         super("NumberOfWordsInArticle", 0);

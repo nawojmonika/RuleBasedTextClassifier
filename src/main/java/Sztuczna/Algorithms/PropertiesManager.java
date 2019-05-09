@@ -1,8 +1,12 @@
 package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
+import com.sun.deploy.util.ArrayUtil;
 
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -10,47 +14,54 @@ import java.util.stream.Collectors;
 
 public class PropertiesManager {
     Map<UUID, ArrayList<Property>> userProperties;
-    Map<String, Integer> wordsDictionary;
-    ArrayList<Article> articles;
+    Map<String, Double> wordsDictionary;
+    List<Article> articles;
 
-    public PropertiesManager(ArrayList<Article> articles) {
+    public PropertiesManager(List<Article> articles, boolean readFromCache) {
         for (Article article : articles) {
             article.performWordsAlgorithm(new TokenizeWords())
                     .performWordsAlgorithm(new ToLowerCase())
                     .performWordsAlgorithm(new StopListAlgorithm())
-                    .performWordsAlgorithm(new Stemization());
+                    .performWordsAlgorithm(new Stemization())
+                    .performTermsAlgorithm(new TerminizeWords());
         }
         this.articles = articles;
-        fillTheWordProperties();
+        this.wordsDictionary = new HashMap<>();
+        if (!readFromCache) {
+            fillTheWordProperties();
+        } else {
+            this.readWordDictionary();
+        }
         fillUserPropertiesArticlesId();
     }
 
 
 
     public void fillTheWordProperties() {
-        this.wordsDictionary = new HashMap<>();
+        // https://nlpforhackers.io/tf-idf/
+        List<List<String>> docsAllWords = new ArrayList<>();
         for (Article article : articles) {
-            final ArrayList<String> wordsFromArticle = article.getAlgorithmsWords();
-            for (String singleWord : wordsFromArticle) {
-                if (wordsDictionary.containsKey(singleWord)) {
-                    int numberOfElementsInDictionary = wordsDictionary.get(singleWord);
-                    numberOfElementsInDictionary++;
-                    wordsDictionary.put(singleWord, numberOfElementsInDictionary);
-                } else {
-                    wordsDictionary.put(singleWord, 1);
+            docsAllWords.add(article.getAlgorithmsWords());
+        }
+
+        TFIDFCalculator calculator = new TFIDFCalculator();
+
+        int articleNum = 0;
+        int numOfArticles = articles.size();
+        for (Article article : articles) {
+            System.out.println("Done: " + ++articleNum + " / " + numOfArticles);
+            List<String> wordsInArticle = article.getAlgorithmsWords();
+            Map<String, Double> wordsWithTFIDF = new HashMap<>();
+            for (String word : wordsInArticle) {
+                if (!this.wordsDictionary.containsKey(word)) {
+                    // System.out.println(word + calculator.tfIdf(wordsInArticle, docsAllWords, word));
+                    Double tfidf = calculator.tfIdf(wordsInArticle, docsAllWords, word);
+                    if (tfidf > 0.3) {
+                        this.wordsDictionary.put(word, tfidf);
+                    }
                 }
             }
         }
-
-        this.wordsDictionary = filterByWordsThreshold(this.wordsDictionary);
-    }
-
-    static Map<String, Integer> filterByWordsThreshold(Map<String, Integer> map) {
-        int numberOfThresholfdForTooComomonWords = 30;
-        return map.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() < numberOfThresholfdForTooComomonWords)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public void fillUserPropertiesArticlesId() {
@@ -81,7 +92,7 @@ public class PropertiesManager {
         }
     }
 
-    public Map<String, Integer> getWordsDictionary() {
+    public Map<String, Double> getWordsDictionary() {
         return this.wordsDictionary;
     }
 
@@ -104,7 +115,54 @@ public class PropertiesManager {
         return userProperties;
     }
 
-    public ArrayList<Article> getArticles() {
+    public List<Article> getArticles() {
         return articles;
+    }
+
+    public void writeWordDictionary() {
+        FileOutputStream valuesOutputStream = null;
+        try {
+            BufferedWriter keysWriter = new BufferedWriter(new FileWriter("dictionary_keys.txt"));
+            valuesOutputStream = new FileOutputStream("dictionary_values.txt");
+            DataOutputStream dos = new DataOutputStream(valuesOutputStream);
+            this.wordsDictionary.entrySet().stream().forEach(stringDoubleEntry -> {
+                try {
+                    keysWriter.write(stringDoubleEntry.getKey());
+                    keysWriter.write("\n");
+                    dos.writeDouble(stringDoubleEntry.getValue());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            keysWriter.close();
+            dos.flush();
+            dos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readWordDictionary() {
+        FileInputStream fos = null;
+        try {
+            fos = new FileInputStream("dictionary_values.txt");
+            DataInputStream dos = new DataInputStream(fos);
+            List<Double> values = new ArrayList<>();
+            while (dos.available() > 0) {
+                values.add(dos.readDouble());
+            }
+
+            List<String> lines = Files.readAllLines(Paths.get("dictionary_keys.txt"));
+            for (int i = 0 ; i < lines.size() ; i++) {
+                this.wordsDictionary.put(lines.get(i), values.get(i));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
