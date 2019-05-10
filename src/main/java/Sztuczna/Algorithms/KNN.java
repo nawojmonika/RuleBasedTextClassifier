@@ -12,29 +12,32 @@ import static java.util.Collections.reverseOrder;
 import static java.util.Comparator.comparing;
 
 public class KNN {
-    ArrayList<Article> articles;
-    Map<UUID, ArrayList<Property>> userProperties;
     Integer K = 1;
+    PropertiesManager learingPropertiesManger;
+    PropertiesManager testingPropertiesManager;
 
     ArrayList<ClassifiedArticle> classifiedArticles = new ArrayList<>();
 
-    public KNN(ArrayList<Article> articles, Map<UUID, ArrayList<Property>> userProperties, Integer K) {
-        this.articles = articles;
-        this.userProperties = userProperties;
+    public KNN(PropertiesManager learingPropertiesManager, PropertiesManager testingPropertiesManager, Integer K) {
+        this.learingPropertiesManger = learingPropertiesManager;
+        this.testingPropertiesManager = testingPropertiesManager;
         this.K = K;
     }
 
     public double perform(Metric metric, TextSimilarityMetric similarityMetric) {
-        List<Article> testingArticles = this.articles.subList(0, (int)(this.articles.size() * 0.7));
-        List<Article> learingArticles = this.articles.subList(testingArticles.size(), this.articles.size());
+        List<Article> testingArticles = this.testingPropertiesManager.getArticles();
+        List<Article> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
+                Arrays.asList(new String[] {"usa", "france", "germany", "canada"}), 10);
         int i = 0;
 
+        Map<UUID, ArrayList<Property>> testingProperties = this.testingPropertiesManager.getUserProperties();
+        Map<UUID, ArrayList<Property>> learingProperties = this.learingPropertiesManger.getUserProperties();
         for (Article testingArticle : testingArticles) {
-            ArrayList<Property> singleTestingProperty = this.userProperties.get(testingArticle.getUniqueId());
+            ArrayList<Property> singleTestingProperty = testingProperties.get(testingArticle.getUniqueId());
             ArrayList<Pair<String, Double>> distances = new ArrayList<>();
 
             learingArticles.stream().forEach(learningArticle -> {
-                ArrayList<Property> propertToDistance = this.userProperties.get(learningArticle.getUniqueId());
+                ArrayList<Property> propertToDistance = learingProperties.get(learningArticle.getUniqueId());
                 distances.add(new Pair<>(learningArticle.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance, similarityMetric)));
             });
 

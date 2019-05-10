@@ -26,8 +26,19 @@ public class PropertiesFactory {
             return new FrequencyOfDictionaryWords(propertiesManager);
         } else if (propertyName == "CountryByNumOfWordsDefinedByUser") {
             return new CountryByNumOfWordsDefinedByUser(propertiesManager, wordsByCountry);
+        } else if (propertyName == "FirstDictionaryWordInArticle") {
+            return new FirstDictionaryWordInArticle(propertiesManager);
+        } else if (propertyName == "LastDictionaryWordInArticle") {
+            return new LastDictionaryWordInArticle(propertiesManager);
+        } else if (propertyName == "NumberOfDictionaryWordsInFirstPartOfArticle") {
+            return new NumberOfDictionaryWordsInFirstPartOfArticle(propertiesManager);
+        } else if (propertyName == "NumberOfDictionaryWordsInLastPartOfArticle") {
+            return new NumberOfDictionaryWordsInLastPartOfArticle(propertiesManager);
+        } else if (propertyName == "MostFrequentDictionaryWord") {
+            return new MostFrequentDictionaryWord(propertiesManager);
+        } else if (propertyName == "LeastFrequentDictionaryWord") {
+            return new LeastFrequentDictionaryWord(propertiesManager);
         }
-
         return null;
     }
     public static Property buildPropertyWithArguments(String propertyName, ArrayList<String> arguments, PropertiesManager propertiesManager) {

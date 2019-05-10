@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 
 public class FXMLController implements Initializable {
 
@@ -42,23 +43,32 @@ public class FXMLController implements Initializable {
         List<Article> learingArticles = articles.subList(testingArticles.size(), articles.size());
         System.out.println(learingArticles.size());
 
-        PropertiesManager propertiesManager = new PropertiesManager(learingArticles, true);
-        // System.out.println(Arrays.toString(propertiesManager.getWordsDictionary().entrySet().toArray()));
-        System.out.println(propertiesManager.getWordsDictionary().entrySet().toString());
-        // propertiesManager.writeWordDictionary();
-        // propertiesManager.addProperty("DictionaryWordsInArticle");
+        PropertiesManager learingPropertiesManager = new PropertiesManager(learingArticles, true);
+        learingPropertiesManager.addProperty("FirstDictionaryWordInArticle");
+        learingPropertiesManager.addProperty("LastDictionaryWordInArticle");
+        learingPropertiesManager.addProperty("NumberOfWordsInArticle");
+        learingPropertiesManager.addProperty("DictionaryWordsInArticle");
+        learingPropertiesManager.addProperty("NumberOfDictionaryWordsInFirstPartOfArticle");
+        learingPropertiesManager.addProperty("NumberOfDictionaryWordsInLastPartOfArticle");
+        learingPropertiesManager.addProperty("MostFrequentDictionaryWord");
+        learingPropertiesManager.addProperty("LeastFrequentDictionaryWord");
+        learingPropertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
+        PropertiesManager testingPropertiesManager = new PropertiesManager(testingArticles, true);
+        testingPropertiesManager.addProperty("FirstDictionaryWordInArticle");
+        testingPropertiesManager.addProperty("LastDictionaryWordInArticle");
+        testingPropertiesManager.addProperty("NumberOfWordsInArticle");
+        testingPropertiesManager.addProperty("DictionaryWordsInArticle");
+        testingPropertiesManager.addProperty("NumberOfDictionaryWordsInFirstPartOfArticle");
+        testingPropertiesManager.addProperty("NumberOfDictionaryWordsInLastPartOfArticle");
+        testingPropertiesManager.addProperty("MostFrequentDictionaryWord");
+        testingPropertiesManager.addProperty("LeastFrequentDictionaryWord");
+        testingPropertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
+        System.out.println("Done");
         // propertiesManager.addProperty("NumberOfWordsInArticle");
         // propertiesManager.addProperty("FrequencyOfDictionaryWords");
 
-        // // ilosć słów w 20% tekstu
-        // // słów kluczowych w tekście
-        // // słowo kluczowe najczęściej pojawiające się w tekście
-
-        // // pierwsze, ostatnie słowo kluczowe
-
         // propertiesManager.addProperty("CountryByNumOfWordsDefinedByUser");
         // propertiesManager.addPropertyWithArguments("SelectedWordFromBeginingOfText", "SelecteUsaWordFromBeginningOfText", new ArrayList<String>(Arrays.asList("usa")));
-        // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPeople", new ArrayList<>(loadAllWordsFromFile("all-people-strings.lc.txt")));
         // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllPlaces", new ArrayList<>(loadAllWordsFromFile("all-places-strings.lc.txt")));
         // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllTopics", new ArrayList<>(loadAllWordsFromFile("all-topics-strings.lc.txt")));
         // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "AllOrgs", new ArrayList<>(loadAllWordsFromFile("all-orgs-strings.lc.txt")));
@@ -70,10 +80,10 @@ public class FXMLController implements Initializable {
         // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "CanadaWordsNum", fp.getAllParsedDataForCountry("Canada"));
         // propertiesManager.addPropertyWithArguments("NumberOfWordsDefinedByUser", "JapanWordsNum", fp.getAllParsedDataForCountry("Japan"));
 
-        // int defaultK = 6;
+        int defaultK = 2;
 
-        // KNN knn = new KNN(propertiesManager.getArticles(), propertiesManager.getUserProperties(), defaultK);
-        // System.out.println(knn.perform(new ChebyshevMetric(), new SimpleStringCompare()));
+        KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, defaultK);
+        System.out.println(knn.perform(new EukidesMetric(), new SimpleStringCompare()));
     }
 
     @Override
