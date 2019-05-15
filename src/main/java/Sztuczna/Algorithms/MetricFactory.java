@@ -5,11 +5,6 @@ import Sztuczna.Metrics.EukidesMetric;
 import Sztuczna.Metrics.ManhattanMetric;
 import Sztuczna.Metrics.Metric;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class MetricFactory {
     public static Metric build(String metric) {

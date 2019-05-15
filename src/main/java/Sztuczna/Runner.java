@@ -1,14 +1,9 @@
 package Sztuczna;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
-import Sztuczna.Metrics.*;
 
 public class Runner {
     public void run(int k, String[] properties, String metric, String similarity) {
@@ -38,6 +33,6 @@ public class Runner {
         }
 
         KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, k);
-        knn.perform(MetricFactory.build(metric), SimilarityFactory.build(similarity));
+        knn.perform(MetricFactory.build(metric), SimilarityFactory.build(metric));
     }
 }
