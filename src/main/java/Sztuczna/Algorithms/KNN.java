@@ -25,10 +25,10 @@ public class KNN {
     }
 
     public double perform(Metric metric, TextSimilarityMetric similarityMetric) {
+        List<String> labels = Arrays.asList(new String[] {"usa", "france", "germany", "canada"});
         List<Article> testingArticles = this.testingPropertiesManager.getArticles();
         List<Article> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
-                Arrays.asList(new String[] {"usa", "france", "germany", "canada"}), 10);
-        int i = 0;
+                labels, 10);
 
         Map<UUID, ArrayList<Property>> testingProperties = this.testingPropertiesManager.getUserProperties();
         Map<UUID, ArrayList<Property>> learingProperties = this.learingPropertiesManger.getUserProperties();
@@ -64,9 +64,26 @@ public class KNN {
                     .get()
                     .getKey();
             this.classifiedArticles.add(new ClassifiedArticle(testingArticle, classifiedCountryId));
-            i++;
-            System.out.println(i);
         }
+
+        System.out.println("Statistics for countries:");
+        for (String label : labels) {
+            int numOfArticlesForCountry = 0;
+            int numOfGoodArticles = 0;
+            int numOfBadArticles = 0;
+            for (ClassifiedArticle ca : this.classifiedArticles) {
+                if (ca.article.getCountryLabel().contains(label)) {
+                    numOfArticlesForCountry++;
+                    if (ca.wasClassifiedProperly()) {
+                        numOfGoodArticles++;
+                    } else {
+                        numOfBadArticles++;
+                    }
+                }
+            }
+            System.out.println(label + ": All: " + numOfArticlesForCountry + " Good: " + numOfGoodArticles + " Bad: " + numOfBadArticles);
+        }
+
 
         long TP = this.classifiedArticles.stream().filter(ClassifiedArticle::wasClassifiedProperly).count();
         return (double)((double)TP / (double)testingArticles.size());

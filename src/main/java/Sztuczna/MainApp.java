@@ -68,10 +68,19 @@ public class MainApp {
             cmd = parser.parse(options, args);
             Runner r = new Runner();
             int kVal = Integer.parseInt(cmd.getOptionValue("k"));
+            System.out.println("K: " + kVal);
             String[] props = cmd.getOptionValues("p");
+            System.out.print("Properties: ");
+            for(String s : props) {
+                System.out.print(s + ",");
+            }
+            System.out.println();
             String metric = cmd.getOptionValue("m");
+            System.out.println("m: " + metric);
             String similarity = cmd.getOptionValue("s");
-            r.run(kVal, props, metric, similarity);
+            System.out.println("s: " + similarity);
+            System.out.println("Found " + r.run(kVal, props, metric, similarity) + "%");
+            return;
         } catch (ParseException e) {
             System.out.println(e.getMessage());
             formatter.printHelp("utility-name", options);
