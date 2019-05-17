@@ -1,4 +1,4 @@
-package Sztuczna.Tests;
+package Sztuczna.Tests.Metrics;
 
 import Sztuczna.Algorithms.Property;
 import Sztuczna.Article;

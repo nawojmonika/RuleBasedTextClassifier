@@ -5,13 +5,14 @@ public class NGramSimilarity implements TextSimilarityMetric {
         int n = 2; // because text is in english
         int N = Math.max(prop1.length(), prop2.length());
         Double sum = 0.0;
-        prop1.toLowerCase();
-        prop2.toLowerCase();
-        for (int i = 0; i < N - n + 1; i++) {
+        prop1 = prop1.toLowerCase();
+        prop2 = prop2.toLowerCase();
+
+        for (int i = 0; i < N - n ; i++) {
             String substring = prop1.substring(i, i + n);
             sum += prop2.indexOf(substring) != -1 ? 1 : 0;
         }
-        Double sim = (1 / N - n + 1) * sum;
+        Double sim = sum / (N - n + 1);
         return sim;
     }
 }
