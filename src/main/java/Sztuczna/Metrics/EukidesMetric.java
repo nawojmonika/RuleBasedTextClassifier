@@ -18,8 +18,8 @@ public class EukidesMetric extends HandleDifference implements Metric {
             Property prop1 = p1Iterator.next();
             Property prop2 = p2Iterator.next();
             Double diff = this.getDifference(prop1, prop2, metric);
-            dist += Math.sqrt((Math.pow( diff, 2.0)));
+            dist += (Math.pow(diff, 2.0));
         }
-        return dist;
+        return Math.sqrt(dist);
     }
 }
