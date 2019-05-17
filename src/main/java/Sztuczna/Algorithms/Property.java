@@ -5,7 +5,7 @@ public abstract class Property<T> implements Algorithm<T> {
     String customLabel = null;
     T value;
 
-    Property(String name, T value) {
+    public Property(String name, T value) {
         this.name = name;
         this.value = value;
     }
