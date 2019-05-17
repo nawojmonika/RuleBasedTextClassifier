@@ -1,14 +1,14 @@
 package Sztuczna.Tests;
 
 import Sztuczna.Algorithms.Property;
-import Sztuczna.Metrics.EukidesMetric;
+import Sztuczna.Metrics.ManhattanMetric;
 import Sztuczna.Metrics.NGramSimilarity;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class EukidesMetricTest {
+public class ManhattanMetricTest {
 
     @Test
     public void calculateDistance() {
@@ -24,10 +24,10 @@ public class EukidesMetricTest {
         y.add(prop2);
         y.add(prop1);
 
-        EukidesMetric metric = new EukidesMetric();
+        ManhattanMetric metric = new ManhattanMetric();
         NGramSimilarity sim = new NGramSimilarity();
         Double distance = metric.calculateDistance(x, y, sim);
-        Double expected = 5.00;
+        Double expected = 7.00;
         Assert.assertEquals(expected, distance);
     }
 }
