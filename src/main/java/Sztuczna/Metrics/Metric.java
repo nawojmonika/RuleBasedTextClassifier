@@ -1,6 +1,6 @@
 package Sztuczna.Metrics;
 
-import Sztuczna.Algorithms.Properties.Property;
+import Sztuczna.Properties.Property;
 
 import java.util.ArrayList;
 

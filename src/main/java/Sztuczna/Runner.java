@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
-import Sztuczna.Algorithms.Properties.PropertiesManager;
+import Sztuczna.Properties.PropertiesManager;
 
 public class Runner {
     public double run(int k, String[] properties, String metric, String similarity) {

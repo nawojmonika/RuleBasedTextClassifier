@@ -1,4 +1,4 @@
-package Sztuczna.Algorithms.Properties;
+package Sztuczna.Properties;
 
 import Sztuczna.Algorithms.Algorithm;
 

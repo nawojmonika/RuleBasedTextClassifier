@@ -1,6 +1,6 @@
 package Sztuczna.Tests.Metrics;
 
-import Sztuczna.Algorithms.Properties.Property;
+import Sztuczna.Properties.Property;
 import Sztuczna.Metrics.ManhattanMetric;
 import Sztuczna.Metrics.NGramSimilarity;
 import org.junit.Assert;

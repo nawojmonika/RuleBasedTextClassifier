@@ -1,4 +1,4 @@
-package Sztuczna.Algorithms.Properties;
+package Sztuczna.Properties;
 
 import Sztuczna.Article;
 
@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class LeastFrequentDictionaryWord extends Property<String> {
+public class MostFrequentDictionaryWord extends Property<String> {
     Map<String, Double> words;
     private String selectedText = "";
 
-    public LeastFrequentDictionaryWord(PropertiesManager pm) {
+    public MostFrequentDictionaryWord(PropertiesManager pm) {
         super("MostFrequentDictionaryWord", "null");
         this.words = pm.getWordsDictionary();
     }
@@ -32,9 +32,9 @@ public class LeastFrequentDictionaryWord extends Property<String> {
             }
         }
         AtomicReference<String> mostFrequentWord = new AtomicReference<>("");
-        Integer frequency = Integer.MAX_VALUE;
+        Integer frequency = 0;
         frequentWords.entrySet().stream().forEach(stringIntegerEntry -> {
-            if (frequency > stringIntegerEntry.getValue())   {
+            if (frequency < stringIntegerEntry.getValue())   {
                 mostFrequentWord.set(stringIntegerEntry.getKey());
             }
         });

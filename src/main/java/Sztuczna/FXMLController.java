@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
-import Sztuczna.Algorithms.Properties.PropertiesManager;
+import Sztuczna.Properties.PropertiesManager;
 import Sztuczna.Metrics.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
