@@ -30,6 +30,7 @@ public class FirstDictionaryWordInArticle extends Property<Double> {
             }
 
         }
+        positionOfTheFirstKeyWord = positionOfTheFirstKeyWord == Integer.MAX_VALUE ? -1 : positionOfTheFirstKeyWord;
         this.setValue(new Double(positionOfTheFirstKeyWord));
         return this.getValue();
     }
