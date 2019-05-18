@@ -16,7 +16,6 @@ public class Runner {
                 if (fileEntry.getName().contains("reut2")) {
                     articles.addAll(l.loadFile(fileEntry));
                 }
-                ;
             }
         }
         System.out.println("Num of articles: " + articles.size());
@@ -34,6 +33,9 @@ public class Runner {
         for (String prop : properties) {
             testingPropertiesManager.addProperty(prop);
         }
+
+        learingPropertiesManager.normalize();
+        testingPropertiesManager.normalize();
 
         KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, k);
         return knn.perform(MetricFactory.build(metric), SimilarityFactory.build(metric));

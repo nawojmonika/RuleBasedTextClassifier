@@ -5,16 +5,16 @@ import Sztuczna.Article;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class LastDictionaryWordInArticle extends Property<Integer> {
+public class LastDictionaryWordInArticle extends Property<Double> {
     Map<String, Double> words;
 
     public LastDictionaryWordInArticle(PropertiesManager pm) {
-        super("LastDictionaryWordInArticle", 0);
+        super("LastDictionaryWordInArticle", 0.0);
         this.words = pm.getWordsDictionary();
     }
 
     @Override
-    public Integer perform(Article a) {
+    public Double perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
         int positionOfTheFirstKeyWord = -1;
         for (Map.Entry<String, Double> dictionaryWord : words.entrySet()) {
@@ -29,7 +29,7 @@ public class LastDictionaryWordInArticle extends Property<Integer> {
             }
 
         }
-        this.setValue(positionOfTheFirstKeyWord);
+        this.setValue(new Double(positionOfTheFirstKeyWord));
         return this.getValue();
     }
 }

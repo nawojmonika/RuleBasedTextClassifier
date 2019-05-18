@@ -7,18 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class DictionaryWordsInArticle extends Property<Integer> {
+public class DictionaryWordsInArticle extends Property<Double> {
     Map<String, Double> words;
 
     public DictionaryWordsInArticle(PropertiesManager pm) {
-        super("DictionaryWordsInArticle", 0);
+        super("DictionaryWordsInArticle", 0.0);
         this.words = pm.getWordsDictionary();
     }
 
     @Override
-    public Integer perform(Article a) {
+    public Double perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
-        this.setValue((int)wordsInArticle.stream().filter(wordFromArticle -> words.containsKey(wordFromArticle)).count());
+        this.setValue(new Double((int)wordsInArticle.stream().filter(wordFromArticle -> words.containsKey(wordFromArticle)).count()));
         return this.getValue();
     }
 }

@@ -18,8 +18,8 @@ public class FrequencyOfDictionaryWords extends Property<Double> {
     @Override
     public Double perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
-        Integer numOfWordsInArticleAndDictionary = new DictionaryWordsInArticle(pm).perform(a);
-        Integer numOfWordsInArticle = new NumberOfWordsInArticle(pm).perform(a);
+        Double numOfWordsInArticleAndDictionary = new DictionaryWordsInArticle(pm).perform(a);
+        Double numOfWordsInArticle = new NumberOfWordsInArticle(pm).perform(a);
         this.setValue((double)numOfWordsInArticleAndDictionary / (double)numOfWordsInArticle);
         return this.getValue();
     }

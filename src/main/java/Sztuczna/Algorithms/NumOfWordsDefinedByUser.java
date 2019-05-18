@@ -5,11 +5,11 @@ import Sztuczna.Article;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NumOfWordsDefinedByUser extends Property<Integer> {
+public class NumOfWordsDefinedByUser extends Property<Double> {
     Set<String> wordsDefinedByUser = new HashSet<>();
 
     public NumOfWordsDefinedByUser(PropertiesManager pm) {
-        super("NumOfWordsDefinedByUser", 0);
+        super("NumOfWordsDefinedByUser", 0.0);
     }
 
     public void setWordsDefinedByUser(Set<String> wordsDefinedByUser) {
@@ -17,12 +17,12 @@ public class NumOfWordsDefinedByUser extends Property<Integer> {
     }
 
     @Override
-    public Integer perform(Article a) {
+    public Double perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
-        this.setValue(wordsInArticle
+        this.setValue(new Double(wordsInArticle
                 .stream()
                 .filter(wordFromArticle -> wordsDefinedByUser.contains(wordFromArticle))
-                .collect(Collectors.reducing(0, e -> 1, Integer::sum)));
+                .collect(Collectors.reducing(0, e -> 1, Integer::sum))));
         return this.getValue();
     }
 }

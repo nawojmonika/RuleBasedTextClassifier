@@ -177,6 +177,39 @@ public class PropertiesManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private double normaliseEquation(double min, double max, double x){
+        return (x - min) / (max - min);
+    }
+
+    public void normalize() {
+        double maxValue = Double.MIN_VALUE;
+        double minValue = Double.MAX_VALUE;
+
+        for (ArrayList<Property> articleProperties : this.userProperties.values()) {
+            for (Property property : articleProperties) {
+                Object propValue = property.getValue();
+                if (!(propValue instanceof String)) {
+                    if (propValue instanceof Double) {
+                        if (maxValue < (Double) propValue) {
+                            maxValue = (Double) propValue;
+                        }
+                        if (minValue > (Double) propValue) {
+                            minValue = (Double) propValue;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (ArrayList<Property> articleProperties : this.userProperties.values()) {
+            for (Property property : articleProperties) {
+                Object propValue = property.getValue();
+                if (!(propValue instanceof String)) {
+                    property.setValue(this.normaliseEquation(minValue, maxValue, (Double)propValue));
+                }
+            }
+        }
     }
 }

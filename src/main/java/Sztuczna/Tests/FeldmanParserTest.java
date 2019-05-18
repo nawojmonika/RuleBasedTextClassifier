@@ -1,5 +1,7 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Tests;
 
+import Sztuczna.Algorithms.FeldmanParser;
+import Sztuczna.Algorithms.FeldmanProperties;
 import org.testng.AssertJUnit;
 
 import java.io.IOException;

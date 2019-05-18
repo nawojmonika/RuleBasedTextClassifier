@@ -5,18 +5,18 @@ import Sztuczna.Article;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class LandBounderies extends Property<Integer> {
+public class LandBounderies extends Property<Double> {
     Map<String, Double> words;
 
     public LandBounderies(PropertiesManager pm) {
-        super("NumberOfWordsInArticle", 0);
+        super("NumberOfWordsInArticle", 0.0);
         this.words = pm.getWordsDictionary();
     }
 
     @Override
-    public Integer perform(Article a) {
+    public Double perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
-        this.setValue((int)wordsInArticle.stream().count());
+        this.setValue(new Double((int)wordsInArticle.stream().count()));
         return this.getValue();
     }
 }
