@@ -1,0 +1,2 @@
+Each property individually
+K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal

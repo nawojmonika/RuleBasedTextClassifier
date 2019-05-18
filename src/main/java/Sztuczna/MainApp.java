@@ -48,6 +48,10 @@ public class MainApp {
         metrices.setRequired(true);
         options.addOption(metrices);
 
+        Option showTableHeader = new Option("t", "show-table-header", false, "");
+        showTableHeader.setRequired(false);
+        options.addOption(showTableHeader);
+
         StringJoiner availTextSimilarity = new StringJoiner("\n");
         availTextSimilarity.add("HandleDifference");
         availTextSimilarity.add("JaccardSimilarity");
@@ -67,19 +71,24 @@ public class MainApp {
         try {
             cmd = parser.parse(options, args);
             Runner r = new Runner();
+            boolean showTableHead = cmd.hasOption("t");
             int kVal = Integer.parseInt(cmd.getOptionValue("k"));
-            System.out.println("K: " + kVal);
+            if (showTableHead) {
+                System.out.println("K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal");
+                System.out.println();
+            }
+            System.out.print(kVal + ";");
             String[] props = cmd.getOptionValues("p");
-            System.out.print("Properties: ");
             for(String s : props) {
                 System.out.print(s + ",");
             }
-            System.out.println();
+            System.out.print(";");
             String metric = cmd.getOptionValue("m");
-            System.out.println("m: " + metric);
+            System.out.print(metric+";");
             String similarity = cmd.getOptionValue("s");
-            System.out.println("s: " + similarity);
-            System.out.println("Found " + r.run(kVal, props, metric, similarity) + "%");
+            System.out.print(similarity+";");
+            System.out.print(r.run(kVal, props, metric, similarity));
+            System.out.println();
             return;
         } catch (ParseException e) {
             System.out.println(e.getMessage());

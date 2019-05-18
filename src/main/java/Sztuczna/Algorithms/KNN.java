@@ -67,7 +67,6 @@ public class KNN {
             this.classifiedArticles.add(new ClassifiedArticle(testingArticle, classifiedCountryId));
         }
 
-        System.out.println("Statistics for countries:");
         for (String label : labels) {
             int numOfArticlesForCountry = 0;
             int numOfGoodArticles = 0;
@@ -82,7 +81,7 @@ public class KNN {
                     }
                 }
             }
-            System.out.println(label + ": All: " + numOfArticlesForCountry + " Good: " + numOfGoodArticles + " Bad: " + numOfBadArticles);
+            System.out.print(numOfArticlesForCountry + ";" + numOfGoodArticles + ";");
         }
 
 

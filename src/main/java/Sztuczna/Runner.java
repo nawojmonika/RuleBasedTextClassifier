@@ -19,11 +19,11 @@ public class Runner {
                 }
             }
         }
-        System.out.println("Num of articles: " + articles.size());
+        System.out.print(articles.size() + ";");
         List<Article> testingArticles = articles.subList(0, (int)(articles.size() * 0.7));
         List<Article> learingArticles = articles.subList(testingArticles.size(), articles.size());
-        System.out.println("Num of testting set: " + testingArticles.size());
-        System.out.println("Num of learing set: " + learingArticles.size());
+        System.out.print(testingArticles.size() + ";");
+        System.out.print(learingArticles.size() +";");
 
         PropertiesManager learingPropertiesManager = new PropertiesManager(learingArticles, true);
         for (String prop : properties) {
