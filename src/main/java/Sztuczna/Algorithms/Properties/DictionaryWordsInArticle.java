@@ -1,11 +1,9 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Algorithms.Properties;
 
 import Sztuczna.Article;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class DictionaryWordsInArticle extends Property<Double> {
     Map<String, Double> words;

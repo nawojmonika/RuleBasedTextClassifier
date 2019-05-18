@@ -1,31 +1,32 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Algorithms.Properties;
 
 import Sztuczna.Article;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class LastDictionaryWordInArticle extends Property<Double> {
+public class FirstDictionaryWordInArticle extends Property<Double> {
     Map<String, Double> words;
 
-    public LastDictionaryWordInArticle(PropertiesManager pm) {
-        super("LastDictionaryWordInArticle", 0.0);
+    public FirstDictionaryWordInArticle(PropertiesManager pm) {
+        super("DictionaryWordsInArticle", 0.0);
         this.words = pm.getWordsDictionary();
     }
 
     @Override
     public Double perform(Article a) {
         ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
-        int positionOfTheFirstKeyWord = -1;
+        int positionOfTheFirstKeyWord = Integer.MAX_VALUE;
         for (Map.Entry<String, Double> dictionaryWord : words.entrySet()) {
-            for (int currentPosition = wordsInArticle.size() - 1; currentPosition >= 0; currentPosition--) {
-                if (wordsInArticle.get(currentPosition).compareTo(dictionaryWord.getKey()) == 0) {
-                    if (currentPosition > positionOfTheFirstKeyWord) {
+            int currentPosition = 1;
+            for (String word : wordsInArticle) {
+                if (word.compareTo(dictionaryWord.getKey()) == 0) {
+                    if (currentPosition < positionOfTheFirstKeyWord) {
                         positionOfTheFirstKeyWord = currentPosition;
                     }
                     break;
                 }
-
+                currentPosition++;
             }
 
         }

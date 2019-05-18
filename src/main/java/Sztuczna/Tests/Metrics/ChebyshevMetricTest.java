@@ -1,6 +1,6 @@
 package Sztuczna.Tests.Metrics;
 
-import Sztuczna.Algorithms.Property;
+import Sztuczna.Algorithms.Properties.Property;
 import Sztuczna.Metrics.ChebyshevMetric;
 import Sztuczna.Metrics.NGramSimilarity;
 import org.junit.Assert;

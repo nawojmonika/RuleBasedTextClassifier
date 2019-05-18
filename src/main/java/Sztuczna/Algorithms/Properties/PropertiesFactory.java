@@ -1,4 +1,6 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Algorithms.Properties;
+
+import Sztuczna.Algorithms.FeldmanParser;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;

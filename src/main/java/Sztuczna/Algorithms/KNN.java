@@ -1,7 +1,8 @@
 package Sztuczna.Algorithms;
 
+import Sztuczna.Algorithms.Properties.PropertiesManager;
+import Sztuczna.Algorithms.Properties.Property;
 import Sztuczna.Article;
-import Sztuczna.Metrics.HandleDifference;
 import Sztuczna.Metrics.Metric;
 import Sztuczna.Metrics.TextSimilarityMetric;
 import javafx.util.Pair;

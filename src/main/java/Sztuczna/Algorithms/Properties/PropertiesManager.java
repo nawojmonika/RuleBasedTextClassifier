@@ -1,16 +1,13 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Algorithms.Properties;
 
+import Sztuczna.Algorithms.*;
 import Sztuczna.Article;
-import com.sun.deploy.util.ArrayUtil;
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-
-
-import java.util.stream.Collectors;
 
 public class PropertiesManager {
     Map<UUID, ArrayList<Property>> userProperties;

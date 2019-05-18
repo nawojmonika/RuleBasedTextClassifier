@@ -1,6 +1,6 @@
 package Sztuczna.Tests.Metrics;
 
-import Sztuczna.Algorithms.Property;
+import Sztuczna.Algorithms.Properties.Property;
 import Sztuczna.Article;
 
 public class TestProperty extends Property<Integer> {

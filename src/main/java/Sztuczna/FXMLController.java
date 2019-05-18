@@ -8,14 +8,13 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
+import Sztuczna.Algorithms.Properties.PropertiesManager;
 import Sztuczna.Metrics.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.util.Pair;
 
 public class FXMLController implements Initializable {
 

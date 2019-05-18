@@ -1,8 +1,6 @@
 package Sztuczna.Metrics;
 
-import Sztuczna.Algorithms.Property;
-
-import java.util.Set;
+import Sztuczna.Algorithms.Properties.Property;
 
 public class HandleDifference {
   public Double getDifference(Property prop1, Property prop2, TextSimilarityMetric metric){

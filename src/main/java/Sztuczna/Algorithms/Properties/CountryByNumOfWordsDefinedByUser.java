@@ -1,9 +1,7 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Algorithms.Properties;
 
 import Sztuczna.Article;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
