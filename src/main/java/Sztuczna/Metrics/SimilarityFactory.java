@@ -1,6 +1,6 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Metrics;
 
-import Sztuczna.Metrics.*;
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
 
 public class SimilarityFactory {
     public static TextSimilarityMetric build(String metric) {

@@ -1,5 +1,6 @@
 package Sztuczna.Metrics;
 
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
 import Sztuczna.Properties.Property;
 
 public class HandleDifference {

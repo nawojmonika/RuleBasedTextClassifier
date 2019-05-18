@@ -1,5 +1,7 @@
 package Sztuczna.Metrics;
 
+import Sztuczna.Metrics.interfaces.Metric;
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
 import Sztuczna.Properties.Property;
 
 import java.util.ArrayList;

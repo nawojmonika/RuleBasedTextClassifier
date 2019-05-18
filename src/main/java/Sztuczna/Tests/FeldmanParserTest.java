@@ -1,15 +1,11 @@
 package Sztuczna.Tests;
 
 import Sztuczna.Algorithms.FeldmanParser;
-import Sztuczna.Algorithms.FeldmanProperties;
+import Sztuczna.Algorithms.interfaces.FeldmanProperties;
 import org.testng.AssertJUnit;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-
-import static org.testng.Assert.*;
 
 public class FeldmanParserTest {
 

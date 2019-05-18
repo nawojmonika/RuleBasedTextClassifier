@@ -1,5 +1,7 @@
 package Sztuczna.Metrics;
 
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
+
 public class NGramSimilarity implements TextSimilarityMetric {
     public Double calculateSimilarity(String prop1, String prop2) {
         int n = 2; // because text is in english

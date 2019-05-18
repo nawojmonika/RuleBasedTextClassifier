@@ -1,4 +1,4 @@
-package Sztuczna.Metrics;
+package Sztuczna.Metrics.interfaces;
 
 import Sztuczna.Properties.Property;
 

@@ -1,14 +1,11 @@
 package Sztuczna;
 
-import Sztuczna.Algorithms.Algorithm;
-import javafx.util.Pair;
+import Sztuczna.Algorithms.interfaces.Algorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Article {
     private String title;

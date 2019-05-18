@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
+import Sztuczna.Metrics.MetricFactory;
+import Sztuczna.Metrics.SimilarityFactory;
 import Sztuczna.Properties.PropertiesManager;
 
 public class Runner {
