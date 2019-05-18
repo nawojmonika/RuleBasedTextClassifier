@@ -27,7 +27,6 @@ public class Runner {
 
         PropertiesManager learingPropertiesManager = new PropertiesManager(learingArticles, true);
         for (String prop : properties) {
-            System.out.println(prop);
             learingPropertiesManager.addProperty(prop);
         }
         PropertiesManager testingPropertiesManager = new PropertiesManager(testingArticles, true);

@@ -20,7 +20,7 @@ public class PropertiesFactory {
     }};
 
     public static Property buildProperty(String propertyName, PropertiesManager propertiesManager) {
-        if (propertyName == "DictionaryWordsInArticle") {
+        if (propertyName.compareTo("DictionaryWordsInArticle") == 0) {
             return new DictionaryWordsInArticle(propertiesManager);
         } else if (propertyName.compareTo("NumberOfWordsInArticle") == 0) {
             return new NumberOfWordsInArticle(propertiesManager);

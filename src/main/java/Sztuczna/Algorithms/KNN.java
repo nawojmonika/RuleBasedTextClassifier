@@ -26,7 +26,7 @@ public class KNN {
     }
 
     public double perform(Metric metric, TextSimilarityMetric similarityMetric) {
-        List<String> labels = Arrays.asList(new String[] {"usa", "france", "germany", "canada"});
+        List<String> labels = Arrays.asList(new String[] {"usa", "france", "canada", "west-germany", "uk", "japan"});
         List<Article> testingArticles = this.testingPropertiesManager.getArticles();
         List<Article> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
                 labels, 10);
