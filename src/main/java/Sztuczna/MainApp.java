@@ -13,6 +13,7 @@ import java.util.StringJoiner;
 
 public class MainApp {
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         Options options = new Options();
 
         Option k = new Option("k", "k", true, "K - neighbours");
@@ -35,6 +36,7 @@ public class MainApp {
         Option classProperties = new Option("p", "property-class", true, availPropertiesNames);
         classProperties.setRequired(true);
         classProperties.setArgs(Option.UNLIMITED_VALUES);
+        classProperties.setValueSeparator(',');
         options.addOption(classProperties);
 
         StringJoiner availMetrices = new StringJoiner("\n");
@@ -53,10 +55,9 @@ public class MainApp {
         options.addOption(showTableHeader);
 
         StringJoiner availTextSimilarity = new StringJoiner("\n");
-        availTextSimilarity.add("HandleDifference");
+        availTextSimilarity.add("ExtendedNGramSimilarity");
         availTextSimilarity.add("JaccardSimilarity");
         availTextSimilarity.add("NGramSimilarity");
-        availTextSimilarity.add("SimpleStringCompare");
         String availSimilaritiesNames = "Avail text similarities names: \n\n\n";
         availSimilaritiesNames += availTextSimilarity.toString();
 
@@ -74,21 +75,23 @@ public class MainApp {
             boolean showTableHead = cmd.hasOption("t");
             int kVal = Integer.parseInt(cmd.getOptionValue("k"));
             if (showTableHead) {
-                System.out.println("K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal");
+                System.out.println("K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal;timeInSeconds");
                 System.out.println();
             }
-            System.out.print(kVal + ";");
+            OutputWriter.addText(""+kVal);
             String[] props = cmd.getOptionValues("p");
+            String pr = "" ;
             for(String s : props) {
-                System.out.print(s + ",");
+                pr += s + ",";
             }
-            System.out.print(";");
+            OutputWriter.addText(pr);
             String metric = cmd.getOptionValue("m");
-            System.out.print(metric+";");
+            OutputWriter.addText(metric);
             String similarity = cmd.getOptionValue("s");
-            System.out.print(similarity+";");
-            System.out.print(r.run(kVal, props, metric, similarity));
-            System.out.println();
+            OutputWriter.addText(similarity);
+            OutputWriter.addText(""+r.run(kVal, props, metric, similarity));
+            OutputWriter.addText(""+(System.currentTimeMillis() - start) / 1000);
+            System.out.println(OutputWriter.getString());
             return;
         } catch (ParseException e) {
             System.out.println(e.getMessage());

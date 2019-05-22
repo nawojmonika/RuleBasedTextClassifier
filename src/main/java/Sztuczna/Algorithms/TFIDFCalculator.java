@@ -11,10 +11,22 @@ import java.util.stream.Collectors;
 public class TFIDFCalculator {
     public double tf(List<String> doc, String term) {
         double result = 0;
-        for (String word : doc) {
-            if (term.equalsIgnoreCase(word))
-                result++;
+
+        //posortowac przed wywolaniem metody
+        //doc.sort(String::compareTo);
+
+        int i = doc.indexOf(term);
+
+        while (doc.get(i).equals(term))
+        {
+            result++;
+            i++;
         }
+
+        //for (String word : doc) {
+        //    if (term.equalsIgnoreCase(word))
+        //        result++;
+        //}
         return result / doc.size();
     }
 

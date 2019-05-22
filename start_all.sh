@@ -1,22 +1,89 @@
 #/bin/bash
-declare -a available_properties=("FirstDictionaryWordInArticle" "LastDictionaryWordInArticle" "NumberOfWordsInArticle" "DictionaryWordsInArticle" "NumberOfDictionaryWordsInFirstPartOfArticle" "NumberOfDictionaryWordsInLastPartOfArticle" "MostFrequentDictionaryWord" "LeastFrequentDictionaryWord")
+declare -a available_properties=("FirstDictionaryWordInArticle" "LastDictionaryWordInArticle" "NumberOfWordsInArticle" "DictionaryWordsInArticle" "NumberOfDictionaryWordsInFirstPartOfArticle" "NumberOfDictionaryWordsInLastPartOfArticle" )
+all_properties=(
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle"
+"FirstDictionaryWordInArticle,DictionaryWordsInArticle"
+"FirstDictionaryWordInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle"
+"LastDictionaryWordInArticle,DictionaryWordsInArticle"
+"LastDictionaryWordInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"NumberOfWordsInArticle,DictionaryWordsInArticle"
+"NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"NumberOfWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,DictionaryWordsInArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"LastDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+"FirstDictionaryWordInArticle,LastDictionaryWordInArticle,NumberOfWordsInArticle,DictionaryWordsInArticle,NumberOfDictionaryWordsInFirstPartOfArticle,NumberOfDictionaryWordsInLastPartOfArticle"
+) 
+
+declare -a available_string_properties=( "MostFrequentDictionaryWord" "LeastFrequentDictionaryWord")
 
 declare -a available_metrices=( "ChebyshevMetric" "EukidesMetric" "ManhattanMetric")
 declare -a available_similarities=( "HandleDifference" "JaccardSimilarity" "NGramSimilarity" "SimpleStringCompare" )
-declare -a available_k=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10");
+declare -a available_k=("1" "5" "10" "15" "20" "25" "30");
 
-echo "Each property individually"
+#echo "Each property individually"
 echo "K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal"
-for property in "${available_properties[@]}"; do
-	for metric in "${available_metrices[@]}"; do
-		for similarity in "${available_similarities[@]}"; do
-			for k in "${available_similarities[@]}"; do
-			java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
-				-k $k \
-				-p $property \
-				-m $metric \
-				-s $similarity;
-			done
-		done;
-	done;
-done
+#parallel -j+0 --results outputs/all/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
+	#				-k {1} \
+	#				-p {2} \
+	#				-m {3} \
+	#				-s "SimpleStringCompare" \
+	#				::: ${available_k[@]} ::: ${available_properties[@]} ::: ${available_metrices[@]};
+#parallel -j+0 --results outputs/all/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
+#	-k {1} \
+#	-p {2} \
+#	-m {3} \
+#	-s {4}\
+#	::: ${available_k[@]} ::: ${available_string_properties[@]} ::: ${available_metrices[@]} ::: ${available_similarities[@]};
+
+parallel --eta -j+0 --results outputs/props/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
+	-k {1} \
+	-p {2} \
+	-m {3} \
+	-s "SimpleStringCompare" \
+	::: ${available_k[@]} ::: ${all_properties[@]} ::: ${available_metrices[@]};

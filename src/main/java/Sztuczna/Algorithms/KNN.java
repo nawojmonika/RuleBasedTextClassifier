@@ -1,5 +1,6 @@
 package Sztuczna.Algorithms;
 
+import Sztuczna.OutputWriter;
 import Sztuczna.Properties.PropertiesManager;
 import Sztuczna.Properties.Property;
 import Sztuczna.Article;
@@ -29,7 +30,7 @@ public class KNN {
         List<String> labels = Arrays.asList(new String[] {"usa", "france", "canada", "west-germany", "uk", "japan"});
         List<Article> testingArticles = this.testingPropertiesManager.getArticles();
         List<Article> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
-                labels, 10);
+                labels, 500);
 
         Map<UUID, ArrayList<Property>> testingProperties = this.testingPropertiesManager.getUserProperties();
         Map<UUID, ArrayList<Property>> learingProperties = this.learingPropertiesManger.getUserProperties();
@@ -81,7 +82,8 @@ public class KNN {
                     }
                 }
             }
-            System.out.print(numOfArticlesForCountry + ";" + numOfGoodArticles + ";");
+            OutputWriter.addText(""+ numOfArticlesForCountry);
+            OutputWriter.addText(""+ numOfGoodArticles);
         }
 
 

@@ -2,12 +2,14 @@ package Sztuczna.Properties;
 
 import Sztuczna.Algorithms.*;
 import Sztuczna.Article;
+import javafx.util.Pair;
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.DoubleStream;
 
 public class PropertiesManager {
     Map<UUID, ArrayList<Property>> userProperties;
@@ -181,19 +183,22 @@ public class PropertiesManager {
     }
 
     public void normalize() {
-        double maxValue = Double.MIN_VALUE;
-        double minValue = Double.MAX_VALUE;
+        Map<String,Pair<Double, Double>> maxMinForProperties = new HashMap<>();
 
         for (ArrayList<Property> articleProperties : this.userProperties.values()) {
             for (Property property : articleProperties) {
                 Object propValue = property.getValue();
                 if (!(propValue instanceof String)) {
                     if (propValue instanceof Double) {
-                        if (maxValue < (Double) propValue) {
-                            maxValue = (Double) propValue;
-                        }
-                        if (minValue > (Double) propValue) {
-                            minValue = (Double) propValue;
+                        if (maxMinForProperties.containsKey(property.getName())) {
+                            if (maxMinForProperties.get(property.getName()).getKey() < (Double) propValue) {
+                                maxMinForProperties.put(property.getName(), new Pair((Double)propValue, maxMinForProperties.get(property.getName()).getValue()));
+                            }
+                            if (maxMinForProperties.get(property.getName()).getValue() > (Double) propValue) {
+                                maxMinForProperties.put(property.getName(), new Pair(maxMinForProperties.get(property.getName()).getKey(), (Double)propValue));
+                            }
+                        } else {
+                            maxMinForProperties.put(property.getName(), new Pair<>((Double) propValue, (Double) propValue));
                         }
                     }
                 }
@@ -204,7 +209,9 @@ public class PropertiesManager {
             for (Property property : articleProperties) {
                 Object propValue = property.getValue();
                 if (!(propValue instanceof String)) {
-                    property.setValue(this.normaliseEquation(minValue, maxValue, (Double)propValue));
+                    Double min = maxMinForProperties.get(property.getName()).getValue();
+                    Double max = maxMinForProperties.get(property.getName()).getKey();
+                    property.setValue(this.normaliseEquation(min, max, (Double)propValue));
                 }
             }
         }
