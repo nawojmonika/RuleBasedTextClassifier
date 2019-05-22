@@ -1,11 +1,13 @@
 package Sztuczna.Metrics;
 
+import Sztuczna.Metrics.interfaces.Metric;
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
 import Sztuczna.Properties.Property;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ManhattanMetric extends HandleDifference implements Metric{
+public class ManhattanMetric extends HandleDifference implements Metric {
     public Double calculateDistance(ArrayList<Property> set1, ArrayList<Property> set2, TextSimilarityMetric metric) {
         Double dist = 0.0;
 

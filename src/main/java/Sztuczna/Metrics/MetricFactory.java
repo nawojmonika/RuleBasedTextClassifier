@@ -1,9 +1,9 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Metrics;
 
 import Sztuczna.Metrics.ChebyshevMetric;
 import Sztuczna.Metrics.EukidesMetric;
 import Sztuczna.Metrics.ManhattanMetric;
-import Sztuczna.Metrics.Metric;
+import Sztuczna.Metrics.interfaces.Metric;
 
 
 public class MetricFactory {

@@ -1,11 +1,11 @@
 package Sztuczna.Algorithms;
 
+import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.util.stream.Collectors.toCollection;
 

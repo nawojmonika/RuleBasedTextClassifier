@@ -1,9 +1,9 @@
 package Sztuczna.Algorithms;
 
+import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.util.stream.Collectors.toCollection;
 

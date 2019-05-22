@@ -4,8 +4,8 @@ import Sztuczna.OutputWriter;
 import Sztuczna.Properties.PropertiesManager;
 import Sztuczna.Properties.Property;
 import Sztuczna.Article;
-import Sztuczna.Metrics.Metric;
-import Sztuczna.Metrics.TextSimilarityMetric;
+import Sztuczna.Metrics.interfaces.Metric;
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
 import javafx.util.Pair;
 
 import java.util.*;

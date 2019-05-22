@@ -1,6 +1,6 @@
 package Sztuczna.Properties;
 
-import Sztuczna.Algorithms.Algorithm;
+import Sztuczna.Algorithms.interfaces.Algorithm;
 
 public abstract class Property<T> implements Algorithm<T> {
     String name;

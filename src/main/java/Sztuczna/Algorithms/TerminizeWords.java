@@ -1,15 +1,11 @@
 package Sztuczna.Algorithms;
 
+import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
-import org.tartarus.snowball.SnowballStemmer;
-import org.tartarus.snowball.ext.englishStemmer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toCollection;
 
 public class TerminizeWords implements Algorithm {
 

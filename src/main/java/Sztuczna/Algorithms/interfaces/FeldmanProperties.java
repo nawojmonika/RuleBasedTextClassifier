@@ -1,4 +1,4 @@
-package Sztuczna.Algorithms;
+package Sztuczna.Algorithms.interfaces;
 
 public enum FeldmanProperties {
     LAND_BOUNDERIES("LandBounderies"),

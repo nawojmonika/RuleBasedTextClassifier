@@ -1,5 +1,7 @@
 package Sztuczna.Metrics;
 
+import Sztuczna.Metrics.interfaces.TextSimilarityMetric;
+
 public class ExtendedNGramSimilarity implements TextSimilarityMetric {
     public Double calculateSimilarity(String prop1, String prop2) {
         int N = Math.max(prop1.length(), prop2.length());
