@@ -25,7 +25,8 @@ public class Loader {
                     getTitle(reute),
                     getBody(reute),
                     getId(reute),
-                    getCountryCodes(reute)
+                    getCountryCodes(reute),
+                    getTopicsCodes(reute)
             ));
         }
         return articles;
@@ -54,6 +55,17 @@ public class Loader {
 
     public String getCountryCodes(Element reute) {
         Elements places = reute.getElementsByTag("PLACES");
+        Elements countryCodes = Jsoup.parse(places.html()).getElementsByTag("D");
+        ArrayList<String> codes = new ArrayList<>();
+        for (Element code : countryCodes) {
+            codes.add(code.text());
+        }
+
+        return String.join(",", codes);
+    }
+
+    public String getTopicsCodes(Element reute) {
+        Elements places = reute.getElementsByTag("TOPICS");
         Elements countryCodes = Jsoup.parse(places.html()).getElementsByTag("D");
         ArrayList<String> codes = new ArrayList<>();
         for (Element code : countryCodes) {

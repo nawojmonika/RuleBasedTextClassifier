@@ -1,7 +1,7 @@
 available_properties=("FirstDictionaryWordInArticle" "LastDictionaryWordInArticle" "NumberOfWordsInArticle" "DictionaryWordsInArticle" "NumberOfDictionaryWordsInFirstPartOfArticle" "NumberOfDictionaryWordsInLastPartOfArticle" "MostFrequentDictionaryWord" "LeastFrequentDictionaryWord")
-declare -a available_metrices=( "ChebyshevMetric" "EukidesMetric" "ManhattanMetric")
-declare -a available_similarities=("ExtendedNGramSimilarity" "JaccardSimilarity" "NGramSimilarity")
-declare -a available_k=("1" "5" "10" "15" "20" "25" "30");
+available_metrices=( "ChebyshevMetric" "EukidesMetric" "ManhattanMetric")
+available_similarities=("ExtendedNGramSimilarity" "JaccardSimilarity" "NGramSimilarity")
+available_k=("1" "5" "10" "15" "20" "25" "30")
 
 # DLA PROPERTIES
 echo "avg;avg-time;property" > sprawko_csv/eksperyment_2.1.number8.avg.csv
@@ -36,8 +36,18 @@ LC_NUMERIC=en_US.UTF-8
 for metric in ${available_metrices[@]}; do
 	cat sprawko_csv/eksperyment_2.1.number8.csv | grep $metric | sort -n -k 1.1 > sprawko_csv/eksperyment_4.metric_$metric.csv;
 	for similarity in ${available_similarities[@]}; do
-		cat sprawko_csv/eksperyment_4.metric_$metric.csv | grep $similarity > sprawko_csv/eksperyment_4.metric_$metric\_similarity_$similarity.csv;
+		cat sprawko_csv/eksperyment_4.metric_$metric.csv | grep \;$similarity > sprawko_csv/eksperyment_4.metric_$metric\_similarity_$similarity.csv;
 		echo "K;overal;time" > sprawko_csv/eksperyment_4.metric_$metric\_similarity_$similarity\_parsed.csv
 		awk -F';' 'BEGIN{OFS=";"} FNR > 1 {print $1, $20, $21}' sprawko_csv/eksperyment_4.metric_$metric\_similarity_$similarity.csv >> sprawko_csv/eksperyment_4.metric_$metric\_similarity_$similarity\_parsed.csv;
 	done
 done
+
+# DLA TOPICS
+echo "avg;avg-time;property" > sprawko_csv/eksperyment_5.1.number8.avg.csv
+awk -F';' '{OFS=";"} {sum += $16} {time += $17 } END { if (NR > 0) print sum / NR, time / NR }' all_topics.csv >> sprawko_csv/eksperyment_5.1.number8.avg.csv
+	truncate --size -1 sprawko_csv/eksperyment_5.1.number8.avg.csv
+echo ";all" >> sprawko_csv/eksperyment_5.1.number8.avg.csv
+
+echo "K;trade-avg;grain-avg;coconut-avg;cocoa-avg;metric;similarity;time" > sprawko_csv/eksperyment_5.all_topics.avg.csv
+awk -F';' '{OFS=";"} {print $1,($9*100)/$8,($11*100)/$10,($13*100)/$12,($15*100)/$14,$3,$4,$17}' all_topics.csv >> sprawko_csv/eksperyment_5.all_topics.avg.csv
+cat sprawko_csv/eksperyment_5.all_topics.avg.csv | sort -k 1.1 -n > sprawko_csv/eksperyment_5.all_topics_sorted.avg.csv

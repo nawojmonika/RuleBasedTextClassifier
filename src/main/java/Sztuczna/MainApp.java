@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.commons.cli.*;
 
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 
@@ -65,6 +66,14 @@ public class MainApp {
         similarities.setRequired(true);
         options.addOption(similarities);
 
+        Option labels = new Option("l", "labels", true, "");
+        labels.setArgs(Option.UNLIMITED_VALUES);
+        labels.setValueSeparator(',');
+        options.addOption(labels);
+
+        Option labelElement = new Option("le", "label-element", true, "");
+        options.addOption(labelElement);
+
         CommandLineParser parser = new BasicParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -74,10 +83,24 @@ public class MainApp {
             Runner r = new Runner();
             boolean showTableHead = cmd.hasOption("t");
             int kVal = Integer.parseInt(cmd.getOptionValue("k"));
+            String[] labelsToWorkOn = new String[]{"usa", "france", "canada", "west-germany", "uk", "japan"};
+            if (cmd.hasOption("l")) {
+                labelsToWorkOn = cmd.getOptionValues("l");
+            }
+
+            String labelElementVal = "country";
+            if (cmd.hasOption("le")) {
+                labelElementVal = cmd.getOptionValue("le");
+            }
             if (showTableHead) {
-                System.out.println("K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal;timeInSeconds");
+                System.out.print("K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;");
+                for (String l : labelsToWorkOn) {
+                    System.out.print(l + ";" + l+"-good;");
+                }
+                System.out.print("overal;timeInSeconds");
                 System.out.println();
             }
+
             OutputWriter.addText(""+kVal);
             String[] props = cmd.getOptionValues("p");
             String pr = "" ;
@@ -89,8 +112,9 @@ public class MainApp {
             OutputWriter.addText(metric);
             String similarity = cmd.getOptionValue("s");
             OutputWriter.addText(similarity);
-            OutputWriter.addText(""+r.run(kVal, props, metric, similarity));
+            Double out = r.run(kVal, props, metric, similarity, labelsToWorkOn, labelElementVal);
             OutputWriter.addText(""+(System.currentTimeMillis() - start) / 1000);
+            OutputWriter.addText(""+out);
             System.out.println(OutputWriter.getString());
             return;
         } catch (ParseException e) {

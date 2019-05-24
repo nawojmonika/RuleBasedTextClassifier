@@ -5,10 +5,12 @@ import Sztuczna.Article;
 public class ClassifiedArticle {
     Article article;
     String className;
+    String labelVal;
 
-    public ClassifiedArticle(Article a, String className) {
+    public ClassifiedArticle(Article a, String className, String labelVal) {
         this.article = a;
         this.className = className;
+        this.labelVal = labelVal;
     }
 
     public String getClassName() {
@@ -16,7 +18,7 @@ public class ClassifiedArticle {
     }
 
     public boolean wasClassifiedProperly() {
-        return this.className.contains(this.article.getCountryLabel());
+        return this.article.getLabelByValue(this.labelVal).contains(this.className);
     }
 
     public String toString() {

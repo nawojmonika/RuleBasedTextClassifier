@@ -63,23 +63,22 @@ all_properties=(
 declare -a available_string_properties=( "MostFrequentDictionaryWord" "LeastFrequentDictionaryWord")
 
 declare -a available_metrices=( "ChebyshevMetric" "EukidesMetric" "ManhattanMetric")
-declare -a available_similarities=( "HandleDifference" "JaccardSimilarity" "NGramSimilarity" "SimpleStringCompare" )
+declare -a available_similarities=( "JaccardSimilarity" "NGramSimilarity" "ExtendedNGramSimilarity" )
 declare -a available_k=("1" "5" "10" "15" "20" "25" "30");
 
-#echo "Each property individually"
-echo "K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;usa;usa-good;france;france-good;canada;canada-good;west-germany;west-germany-good;uk;uk-good;japan;japan-good;overal"
-#parallel -j+0 --results outputs/all/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
-	#				-k {1} \
-	#				-p {2} \
-	#				-m {3} \
-	#				-s "SimpleStringCompare" \
-	#				::: ${available_k[@]} ::: ${available_properties[@]} ::: ${available_metrices[@]};
-#parallel -j+0 --results outputs/all/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
-#	-k {1} \
-#	-p {2} \
-#	-m {3} \
-#	-s {4}\
-#	::: ${available_k[@]} ::: ${available_string_properties[@]} ::: ${available_metrices[@]} ::: ${available_similarities[@]};
+parallel -j+0 --results outputs/all/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
+	-k {1} \
+	-p {2} \
+	-m {3} \
+	-s "SimpleStringCompare" \
+	::: ${available_k[@]} ::: ${available_properties[@]} ::: ${available_metrices[@]};
+
+parallel -j+0 --results outputs/all/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
+	-k {1} \
+	-p {2} \
+	-m {3} \
+	-s {4}\
+	::: ${available_k[@]} ::: ${available_string_properties[@]} ::: ${available_metrices[@]} ::: ${available_similarities[@]};
 
 parallel --eta -j+0 --results outputs/props/ java -jar out/artifacts/Sztuczna_jar/Sztuczna.jar \
 	-k {1} \

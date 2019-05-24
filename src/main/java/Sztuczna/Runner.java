@@ -9,7 +9,7 @@ import Sztuczna.Metrics.SimilarityFactory;
 import Sztuczna.Properties.PropertiesManager;
 
 public class Runner {
-    public double run(int k, String[] properties, String metric, String similarity) {
+    public double run(int k, String[] properties, String metric, String similarity, String[] labelsToWorkOn, String labelVal) {
         File selectedFolder = new File("assets");
 
         Loader l = new Loader();
@@ -39,7 +39,7 @@ public class Runner {
         learingPropertiesManager.normalize();
         testingPropertiesManager.normalize();
 
-        KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, k);
+        KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, k, labelsToWorkOn, labelVal);
         return knn.perform(MetricFactory.build(metric), SimilarityFactory.build(similarity));
     }
 }

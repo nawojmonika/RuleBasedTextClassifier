@@ -13,6 +13,7 @@ public class Article {
     private String oldId;
     private UUID uniqueId;
     private String countryLabel;
+    private String topics;
 
     private ArrayList<String> algorithmsWords = new ArrayList<>();
 
@@ -22,12 +23,17 @@ public class Article {
 
     private Map<String, Integer> termWords = new HashMap<>();
 
-    public Article(String title, String body, String oldId, String countryLabel) {
+    public String getTopics() {
+        return topics;
+    }
+
+    public Article(String title, String body, String oldId, String countryLabel, String topics) {
         this.title = title;
         this.body = body;
         this.oldId = oldId;
         this.uniqueId = UUID.randomUUID();
         this.countryLabel = countryLabel;
+        this.topics = topics;
     }
 
     public String getTitle() {
@@ -58,6 +64,15 @@ public class Article {
     public Article performTermsAlgorithm(Algorithm<Map<String, Integer>> algorithm) {
         this.termWords = algorithm.perform(this);
         return this;
+    }
+
+    public String getLabelByValue(String value) {
+        if (value.compareTo("topics") == 0) {
+            return this.getTopics();
+        } else if (value.compareTo("country") == 0) {
+            return this.getCountryLabel();
+        }
+        throw new Error("Wrong label");
     }
 
     public void tokenizeWords() {

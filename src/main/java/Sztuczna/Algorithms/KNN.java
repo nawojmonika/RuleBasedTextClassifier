@@ -17,20 +17,24 @@ public class KNN {
     Integer K = 1;
     PropertiesManager learingPropertiesManger;
     PropertiesManager testingPropertiesManager;
+    String[] labelsToWorkOn;
+    String labelVal;
 
     ArrayList<ClassifiedArticle> classifiedArticles = new ArrayList<>();
 
-    public KNN(PropertiesManager learingPropertiesManager, PropertiesManager testingPropertiesManager, Integer K) {
+    public KNN(PropertiesManager learingPropertiesManager, PropertiesManager testingPropertiesManager, Integer K, String[] labelsToWorkOn, String labelVal) {
         this.learingPropertiesManger = learingPropertiesManager;
         this.testingPropertiesManager = testingPropertiesManager;
+        this.labelsToWorkOn = labelsToWorkOn;
+        this.labelVal = labelVal;
         this.K = K;
     }
 
     public double perform(Metric metric, TextSimilarityMetric similarityMetric) {
-        List<String> labels = Arrays.asList(new String[] {"usa", "france", "canada", "west-germany", "uk", "japan"});
+        List<String> labels = Arrays.asList(this.labelsToWorkOn);
         List<Article> testingArticles = this.testingPropertiesManager.getArticles();
         List<Article> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
-                labels, 500);
+                labels, labelVal, 500);
 
         Map<UUID, ArrayList<Property>> testingProperties = this.testingPropertiesManager.getUserProperties();
         Map<UUID, ArrayList<Property>> learingProperties = this.learingPropertiesManger.getUserProperties();
@@ -40,7 +44,7 @@ public class KNN {
 
             learingArticles.stream().forEach(learningArticle -> {
                 ArrayList<Property> propertToDistance = learingProperties.get(learningArticle.getUniqueId());
-                distances.add(new Pair<>(learningArticle.getCountryLabel(), metric.calculateDistance(singleTestingProperty, propertToDistance, similarityMetric)));
+                distances.add(new Pair<>(learningArticle.getLabelByValue(labelVal), metric.calculateDistance(singleTestingProperty, propertToDistance, similarityMetric)));
             });
 
             Map<String, Integer> countedDistances = new HashMap<>();
@@ -65,16 +69,17 @@ public class KNN {
                     .max(Comparator.comparing(Map.Entry::getValue))
                     .get()
                     .getKey();
-            this.classifiedArticles.add(new ClassifiedArticle(testingArticle, classifiedCountryId));
+            this.classifiedArticles.add(new ClassifiedArticle(testingArticle, classifiedCountryId, labelVal));
         }
 
+        int numberOfArticlesToClassify = 0;
         for (String label : labels) {
-            int numOfArticlesForCountry = 0;
+            int numOfArticlesForLabel = 0;
             int numOfGoodArticles = 0;
             int numOfBadArticles = 0;
             for (ClassifiedArticle ca : this.classifiedArticles) {
-                if (ca.article.getCountryLabel().contains(label)) {
-                    numOfArticlesForCountry++;
+                if (ca.article.getLabelByValue(labelVal).contains(label)) {
+                    numOfArticlesForLabel++;
                     if (ca.wasClassifiedProperly()) {
                         numOfGoodArticles++;
                     } else {
@@ -82,12 +87,14 @@ public class KNN {
                     }
                 }
             }
-            OutputWriter.addText(""+ numOfArticlesForCountry);
+            numberOfArticlesToClassify += numOfArticlesForLabel;
+            OutputWriter.addText(""+ numOfArticlesForLabel);
             OutputWriter.addText(""+ numOfGoodArticles);
         }
 
 
         long TP = this.classifiedArticles.stream().filter(ClassifiedArticle::wasClassifiedProperly).count();
+        OutputWriter.addText(""+ (double)((double)TP / (double)numberOfArticlesToClassify));
         return (double)((double)TP / (double)testingArticles.size());
     }
 

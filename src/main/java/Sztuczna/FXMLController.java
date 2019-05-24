@@ -81,7 +81,7 @@ public class FXMLController implements Initializable {
 
         int defaultK = 2;
 
-        KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, defaultK);
+        KNN knn = new KNN(learingPropertiesManager, testingPropertiesManager, defaultK, null, null);
         System.out.println(knn.perform(new EukidesMetric(), new SimpleStringCompare()));
     }
 

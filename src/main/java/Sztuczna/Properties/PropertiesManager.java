@@ -34,16 +34,16 @@ public class PropertiesManager {
         fillUserPropertiesArticlesId();
     }
 
-    public List<Article> getArticlesForLabels(List<String> labels, int numberOfArticles) {
+    public List<Article> getArticlesForLabels(List<String> labels, String labelVal, int numberOfArticles) {
         Map<String, Integer> labelsForCountries = new HashMap<>();
         for (String label: labels) {
             labelsForCountries.put(label, 0);
         }
         List<Article> articlesForLabels = new ArrayList<>();
         for (Article article : this.articles) {
-            String countryLabel = article.getCountryLabel();
-            if (labelsForCountries.containsKey(countryLabel) && labelsForCountries.get(countryLabel) <= numberOfArticles) {
-                labelsForCountries.put(countryLabel, labelsForCountries.get(countryLabel) + 1);
+            String label = article.getLabelByValue(labelVal);
+            if (labelsForCountries.containsKey(label) && labelsForCountries.get(label) <= numberOfArticles) {
+                labelsForCountries.put(label, labelsForCountries.get(label) + 1);
                 articlesForLabels.add(article);
             }
         }
