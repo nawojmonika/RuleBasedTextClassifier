@@ -2,12 +2,9 @@ package Sztuczna;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
-public class Article {
+public class Article implements Item{
     private String title;
     private String body;
     private String oldId;
@@ -15,7 +12,7 @@ public class Article {
     private String countryLabel;
     private String topics;
 
-    private ArrayList<String> algorithmsWords = new ArrayList<>();
+    private List<String> algorithmsWords = new ArrayList<>();
 
     public Map<String, Integer> getTermWords() {
         return termWords;
@@ -49,15 +46,20 @@ public class Article {
     }
     public UUID getUniqueId() { return this.uniqueId; }
 
+    @Override
+    public String getMainText() {
+        return this.getBody();
+    }
+
     public String getCountryLabel() {
         return countryLabel;
     }
 
-    public ArrayList<String> getAlgorithmsWords() {
+    public List<String> getAlgorithmsWords() {
         return this.algorithmsWords;
     }
 
-    public Article performWordsAlgorithm(Algorithm<ArrayList> algorithm) {
+    public Article performWordsAlgorithm(Algorithm<List> algorithm) {
         this.algorithmsWords = algorithm.perform(this);
         return this;
     }
@@ -75,6 +77,4 @@ public class Article {
         throw new Error("Wrong label");
     }
 
-    public void tokenizeWords() {
-    }
 }

@@ -1,8 +1,10 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class SelectedWordFromBeginingOfText extends Property<Double> {
@@ -24,8 +26,8 @@ public class SelectedWordFromBeginingOfText extends Property<Double> {
     }
 
     @Override
-    public Double perform(Article a) {
-        ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
+    public Double perform(Item a) {
+        List<String> wordsInArticle = a.getAlgorithmsWords();
         for (int lenghtFromBeginingOfText = 0 ; lenghtFromBeginingOfText < wordsInArticle.size() ; lenghtFromBeginingOfText++) {
             if (selectedText == wordsInArticle.get(lenghtFromBeginingOfText)) {
                 this.setValue( new Double(lenghtFromBeginingOfText));

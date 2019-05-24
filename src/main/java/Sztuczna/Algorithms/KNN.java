@@ -1,5 +1,6 @@
 package Sztuczna.Algorithms;
 
+import Sztuczna.Item;
 import Sztuczna.OutputWriter;
 import Sztuczna.Properties.PropertiesManager;
 import Sztuczna.Properties.Property;
@@ -32,13 +33,13 @@ public class KNN {
 
     public double perform(Metric metric, TextSimilarityMetric similarityMetric) {
         List<String> labels = Arrays.asList(this.labelsToWorkOn);
-        List<Article> testingArticles = this.testingPropertiesManager.getArticles();
-        List<Article> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
+        List<Item> testingArticles = this.testingPropertiesManager.getArticles();
+        List<Item> learingArticles = this.learingPropertiesManger.getArticlesForLabels(
                 labels, labelVal, 500);
 
         Map<UUID, ArrayList<Property>> testingProperties = this.testingPropertiesManager.getUserProperties();
         Map<UUID, ArrayList<Property>> learingProperties = this.learingPropertiesManger.getUserProperties();
-        for (Article testingArticle : testingArticles) {
+        for (Item testingArticle : testingArticles) {
             ArrayList<Property> singleTestingProperty = testingProperties.get(testingArticle.getUniqueId());
             ArrayList<Pair<String, Double>> distances = new ArrayList<>();
 

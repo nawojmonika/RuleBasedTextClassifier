@@ -2,6 +2,7 @@ package Sztuczna.Properties;
 
 import Sztuczna.Algorithms.*;
 import Sztuczna.Article;
+import Sztuczna.Item;
 import javafx.util.Pair;
 
 
@@ -14,10 +15,10 @@ import java.util.stream.DoubleStream;
 public class PropertiesManager {
     Map<UUID, ArrayList<Property>> userProperties;
     Map<String, Double> wordsDictionary;
-    List<Article> articles;
+    List<Item> articles;
 
-    public PropertiesManager(List<Article> articles, boolean readFromCache) {
-        for (Article article : articles) {
+    public PropertiesManager(List<Item> articles, boolean readFromCache) {
+        for (Item article : articles) {
             article.performWordsAlgorithm(new TokenizeWords())
                     .performWordsAlgorithm(new ToLowerCase())
                     .performWordsAlgorithm(new StopListAlgorithm())
@@ -34,13 +35,13 @@ public class PropertiesManager {
         fillUserPropertiesArticlesId();
     }
 
-    public List<Article> getArticlesForLabels(List<String> labels, String labelVal, int numberOfArticles) {
+    public List<Item> getArticlesForLabels(List<String> labels, String labelVal, int numberOfArticles) {
         Map<String, Integer> labelsForCountries = new HashMap<>();
         for (String label: labels) {
             labelsForCountries.put(label, 0);
         }
-        List<Article> articlesForLabels = new ArrayList<>();
-        for (Article article : this.articles) {
+        List<Item> articlesForLabels = new ArrayList<>();
+        for (Item article : this.articles) {
             String label = article.getLabelByValue(labelVal);
             if (labelsForCountries.containsKey(label) && labelsForCountries.get(label) <= numberOfArticles) {
                 labelsForCountries.put(label, labelsForCountries.get(label) + 1);
@@ -53,7 +54,7 @@ public class PropertiesManager {
     public void fillTheWordProperties() {
         // https://nlpforhackers.io/tf-idf/
         List<List<String>> docsAllWords = new ArrayList<>();
-        for (Article article : articles) {
+        for (Item article : articles) {
             docsAllWords.add(article.getAlgorithmsWords());
         }
 
@@ -61,7 +62,7 @@ public class PropertiesManager {
 
         int articleNum = 0;
         int numOfArticles = articles.size();
-        for (Article article : articles) {
+        for (Item article : articles) {
             System.out.println("Done: " + ++articleNum + " / " + numOfArticles);
             List<String> wordsInArticle = article.getAlgorithmsWords();
             Map<String, Double> wordsWithTFIDF = new HashMap<>();
@@ -79,13 +80,13 @@ public class PropertiesManager {
 
     public void fillUserPropertiesArticlesId() {
         this.userProperties = new HashMap<>();
-        for (Article a : articles) {
+        for (Item a : articles) {
             userProperties.put(a.getUniqueId(), new ArrayList<>());
         }
     }
 
     public void addProperty(String property) {
-        for (Article a : articles) {
+        for (Item a : articles) {
             Property p = PropertiesFactory.buildProperty(property, this);
             ArrayList<Property> propertiesHandler = userProperties.get(a.getUniqueId());
             propertiesHandler.add(p);
@@ -95,7 +96,7 @@ public class PropertiesManager {
     }
 
     public void addPropertyWithArguments(String property, String customLabel, ArrayList<String> arguments) {
-        for (Article a : articles) {
+        for (Item a : articles) {
             Property p = PropertiesFactory.buildPropertyWithArguments(property, arguments, this);
             p.setCustomLabel(customLabel);
             ArrayList<Property> propertiesHandler = userProperties.get(a.getUniqueId());
@@ -128,7 +129,7 @@ public class PropertiesManager {
         return userProperties;
     }
 
-    public List<Article> getArticles() {
+    public List<Item> getArticles() {
         return articles;
     }
 

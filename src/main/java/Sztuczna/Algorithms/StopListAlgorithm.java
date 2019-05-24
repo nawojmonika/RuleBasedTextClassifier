@@ -2,6 +2,7 @@ package Sztuczna.Algorithms;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -187,7 +188,7 @@ public class StopListAlgorithm implements Algorithm {
     ));
 
     @Override
-    public ArrayList<String> perform(Article a) {
+    public ArrayList<String> perform(Item a) {
         return a.getAlgorithmsWords()
                 .stream()
                 .filter(word -> !this.stopList.contains(word))

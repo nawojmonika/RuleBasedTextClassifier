@@ -2,6 +2,7 @@ package Sztuczna.Algorithms;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -12,9 +13,9 @@ public class TokenizeWords implements Algorithm {
 
 
     @Override
-    public ArrayList<String> perform(Article a) {
+    public ArrayList<String> perform(Item a) {
         Pattern wordPatern = Pattern.compile("(\\w+)");
-        Matcher wordsMatcher = wordPatern.matcher(a.getBody());
+        Matcher wordsMatcher = wordPatern.matcher(a.getMainText());
         ArrayList<String> tokenizedWords = new ArrayList<>();
 
         while (wordsMatcher.find()) {

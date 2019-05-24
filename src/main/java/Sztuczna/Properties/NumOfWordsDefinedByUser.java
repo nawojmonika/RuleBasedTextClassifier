@@ -1,6 +1,7 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,8 +18,8 @@ public class NumOfWordsDefinedByUser extends Property<Double> {
     }
 
     @Override
-    public Double perform(Article a) {
-        ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
+    public Double perform(Item a) {
+        List<String> wordsInArticle = a.getAlgorithmsWords();
         this.setValue(new Double(wordsInArticle
                 .stream()
                 .filter(wordFromArticle -> wordsDefinedByUser.contains(wordFromArticle))

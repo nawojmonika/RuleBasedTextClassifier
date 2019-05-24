@@ -1,9 +1,11 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -18,8 +20,8 @@ public class LeastFrequentDictionaryWord extends Property<String> {
 
 
     @Override
-    public String perform(Article a) {
-        ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
+    public String perform(Item a) {
+        List<String> wordsInArticle = a.getAlgorithmsWords();
         Map<String, Integer> frequentWords = new HashMap<>();
 
         for (String word : wordsInArticle) {

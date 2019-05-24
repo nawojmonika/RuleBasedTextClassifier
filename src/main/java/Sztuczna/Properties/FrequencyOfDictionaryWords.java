@@ -1,8 +1,10 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class FrequencyOfDictionaryWords extends Property<Double> {
@@ -16,8 +18,8 @@ public class FrequencyOfDictionaryWords extends Property<Double> {
     }
 
     @Override
-    public Double perform(Article a) {
-        ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
+    public Double perform(Item a) {
+        List<String> wordsInArticle = a.getAlgorithmsWords();
         Double numOfWordsInArticleAndDictionary = new DictionaryWordsInArticle(pm).perform(a);
         Double numOfWordsInArticle = new NumberOfWordsInArticle(pm).perform(a);
         this.setValue((double)numOfWordsInArticleAndDictionary / (double)numOfWordsInArticle);

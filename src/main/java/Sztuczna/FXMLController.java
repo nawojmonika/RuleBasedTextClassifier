@@ -28,8 +28,8 @@ public class FXMLController implements Initializable {
         DirectoryChooser fileChooser = new DirectoryChooser();
         File selectedFolder = fileChooser.showDialog(null);
 
-        Loader l = new Loader();
-        ArrayList<Article> articles = new ArrayList<>();
+        ArticleLoader l = new ArticleLoader();
+        ArrayList<Item> articles = new ArrayList<>();
         for (final File fileEntry : selectedFolder.listFiles()) {
             if (fileEntry.isFile()) {
                 if (fileEntry.getName().contains("reut2")) {
@@ -38,8 +38,8 @@ public class FXMLController implements Initializable {
                 ;
             }
         }
-        List<Article> testingArticles = articles.subList(0, (int)(articles.size() * 0.7));
-        List<Article> learingArticles = articles.subList(testingArticles.size(), articles.size());
+        List<Item> testingArticles = articles.subList(0, (int)(articles.size() * 0.7));
+        List<Item> learingArticles = articles.subList(testingArticles.size(), articles.size());
         System.out.println(learingArticles.size());
 
         PropertiesManager learingPropertiesManager = new PropertiesManager(learingArticles, true);

@@ -1,13 +1,14 @@
 package Sztuczna.Algorithms;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 public class ClassifiedArticle {
-    Article article;
+    Item article;
     String className;
     String labelVal;
 
-    public ClassifiedArticle(Article a, String className, String labelVal) {
+    public ClassifiedArticle(Item a, String className, String labelVal) {
         this.article = a;
         this.className = className;
         this.labelVal = labelVal;
@@ -19,9 +20,5 @@ public class ClassifiedArticle {
 
     public boolean wasClassifiedProperly() {
         return this.article.getLabelByValue(this.labelVal).contains(this.className);
-    }
-
-    public String toString() {
-        return "ID: " + this.article.getOldId() + " in article:" + this.article.getCountryLabel() + " predicted: " + this.className;
     }
 }

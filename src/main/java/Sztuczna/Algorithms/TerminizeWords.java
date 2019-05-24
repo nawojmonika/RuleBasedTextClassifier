@@ -2,6 +2,7 @@ package Sztuczna.Algorithms;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 public class TerminizeWords implements Algorithm {
 
     @Override
-    public Map<String, Integer> perform(Article a) {
+    public Map<String, Integer> perform(Item a) {
         Map<String, Integer> termWords = new HashMap<>();
 
         for (String word : a.getAlgorithmsWords()) {

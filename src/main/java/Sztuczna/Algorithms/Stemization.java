@@ -2,6 +2,7 @@ package Sztuczna.Algorithms;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
 import Sztuczna.Article;
+import Sztuczna.Item;
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
 
@@ -12,7 +13,7 @@ import static java.util.stream.Collectors.toCollection;
 public class Stemization implements Algorithm {
 
     @Override
-    public ArrayList<String> perform(Article a) {
+    public ArrayList<String> perform(Item a) {
         return a.getAlgorithmsWords()
                 .stream()
                 .map(Stemization::stemization)

@@ -1,8 +1,10 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class FirstDictionaryWordInArticle extends Property<Double> {
@@ -14,8 +16,8 @@ public class FirstDictionaryWordInArticle extends Property<Double> {
     }
 
     @Override
-    public Double perform(Article a) {
-        ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
+    public Double perform(Item a) {
+        List<String> wordsInArticle = a.getAlgorithmsWords();
         int positionOfTheFirstKeyWord = Integer.MAX_VALUE;
         for (Map.Entry<String, Double> dictionaryWord : words.entrySet()) {
             int currentPosition = 1;

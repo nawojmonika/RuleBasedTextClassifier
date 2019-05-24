@@ -12,8 +12,8 @@ public class Runner {
     public double run(int k, String[] properties, String metric, String similarity, String[] labelsToWorkOn, String labelVal) {
         File selectedFolder = new File("assets");
 
-        Loader l = new Loader();
-        ArrayList<Article> articles = new ArrayList<>();
+        ArticleLoader l = new ArticleLoader();
+        ArrayList<Item> articles = new ArrayList<>();
         for (final File fileEntry : selectedFolder.listFiles()) {
             if (fileEntry.isFile()) {
                 if (fileEntry.getName().contains("reut2")) {
@@ -22,8 +22,8 @@ public class Runner {
             }
         }
         OutputWriter.addText("" + articles.size());
-        List<Article> testingArticles = articles.subList(0, (int)(articles.size() * 0.7));
-        List<Article> learingArticles = articles.subList(testingArticles.size(), articles.size());
+        List<Item> testingArticles = articles.subList(0, (int)(articles.size() * 0.7));
+        List<Item> learingArticles = articles.subList(testingArticles.size(), articles.size());
         OutputWriter.addText("" + testingArticles.size());
         OutputWriter.addText("" + learingArticles.size());
 

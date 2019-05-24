@@ -1,5 +1,6 @@
 package Sztuczna.Tests.Metrics;
 
+import Sztuczna.Item;
 import Sztuczna.Properties.Property;
 import Sztuczna.Article;
 
@@ -8,7 +9,7 @@ public class TestProperty extends Property<Integer> {
         super("TestProperty", value);
     }
     @Override
-    public Integer perform(Article a) {
+    public Integer perform(Item a) {
         return null;
     }
 }

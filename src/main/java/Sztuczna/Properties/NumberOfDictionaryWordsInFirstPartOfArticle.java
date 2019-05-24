@@ -1,8 +1,10 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Article;
+import Sztuczna.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class NumberOfDictionaryWordsInFirstPartOfArticle extends Property<Double> {
@@ -14,8 +16,8 @@ public class NumberOfDictionaryWordsInFirstPartOfArticle extends Property<Double
     }
 
     @Override
-    public Double perform(Article a) {
-        ArrayList<String> wordsInArticle = a.getAlgorithmsWords();
+    public Double perform(Item a) {
+        List<String> wordsInArticle = a.getAlgorithmsWords();
         final int PERCENT_OF_FIRST_PART = 20;
         final int NUMBER_OF_WORDS_TO_CHECK = Math.round((PERCENT_OF_FIRST_PART * wordsInArticle.size())/100);
 
