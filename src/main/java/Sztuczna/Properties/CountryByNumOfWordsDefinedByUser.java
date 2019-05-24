@@ -1,6 +1,5 @@
 package Sztuczna.Properties;
 
-import Sztuczna.Article;
 import Sztuczna.Item;
 
 import java.util.*;

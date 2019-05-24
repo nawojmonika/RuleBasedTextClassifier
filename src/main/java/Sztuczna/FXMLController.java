@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Sztuczna.Algorithms.*;
+import Sztuczna.Loaders.ArticleLoader;
 import Sztuczna.Properties.PropertiesManager;
 import Sztuczna.Metrics.*;
 import javafx.event.ActionEvent;

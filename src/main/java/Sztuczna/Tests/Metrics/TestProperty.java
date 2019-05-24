@@ -2,7 +2,6 @@ package Sztuczna.Tests.Metrics;
 
 import Sztuczna.Item;
 import Sztuczna.Properties.Property;
-import Sztuczna.Article;
 
 public class TestProperty extends Property<Integer> {
     public TestProperty(int value) {

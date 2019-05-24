@@ -1,6 +1,5 @@
 package Sztuczna.Algorithms;
 
-import Sztuczna.Article;
 import Sztuczna.Item;
 
 public class ClassifiedArticle {

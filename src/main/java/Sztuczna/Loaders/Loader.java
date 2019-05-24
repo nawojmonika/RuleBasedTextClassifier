@@ -1,5 +1,6 @@
-package Sztuczna;
+package Sztuczna.Loaders;
 
+import Sztuczna.Item;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,5 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public interface Loader {
-    public ArrayList<Item> loadFile(File file);
+    ArrayList<Item> loadFile(File file);
+    String getBaseFileName();
 }

@@ -1,7 +1,7 @@
-package Sztuczna;
+package Sztuczna.Loaders;
 
+import Sztuczna.Item;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ArticleLoader implements Loader{
+public class ArticleLoader implements Loader {
     private Document nodeParser;
     public ArrayList<Item> loadFile(File file) {
         try {
@@ -30,6 +30,11 @@ public class ArticleLoader implements Loader{
             ));
         }
         return articles;
+    }
+
+    @Override
+    public String getBaseFileName() {
+        return "reut2";
     }
 
     public String getId(Element reute) {

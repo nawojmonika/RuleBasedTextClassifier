@@ -1,7 +1,6 @@
 package Sztuczna.Algorithms;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
-import Sztuczna.Article;
 import Sztuczna.Item;
 
 import java.util.ArrayList;

@@ -1,16 +1,15 @@
-package Sztuczna;
+package Sztuczna.Loaders;
 
+import Sztuczna.Item;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BBCLoader implements Loader{
+public class BBCLoader implements Loader {
     private Document nodeParser;
     public ArrayList<Item> loadFile(File file) {
         try {
@@ -35,9 +34,14 @@ public class BBCLoader implements Loader{
         for (List<String> record : records) {
             bbcs.add(new BBC(
                     record.get(1),
-                    record.get(2)
+                    record.get(0)
             ));
         }
         return bbcs;
+    }
+
+    @Override
+    public String getBaseFileName() {
+        return "bbc-text";
     }
 }

@@ -66,6 +66,14 @@ public class MainApp {
         similarities.setRequired(true);
         options.addOption(similarities);
 
+        Option loader = new Option("lo", "loader", true, "Loader for specific files");
+        loader.setRequired(false);
+        options.addOption(loader);
+
+        Option cache = new Option("dc", "dont-read-cache", false, "Dont read dictionary cache");
+        cache.setRequired(false);
+        options.addOption(cache);
+
         Option labels = new Option("l", "labels", true, "");
         labels.setArgs(Option.UNLIMITED_VALUES);
         labels.setValueSeparator(',');
@@ -92,6 +100,15 @@ public class MainApp {
             if (cmd.hasOption("le")) {
                 labelElementVal = cmd.getOptionValue("le");
             }
+            String loaderName = "article";
+            if (cmd.hasOption("lo")) {
+                loaderName = cmd.getOptionValue("lo");
+            }
+
+            boolean readFromCache = true;
+            if (cmd.hasOption("dc")) {
+                readFromCache = false;
+            }
             if (showTableHead) {
                 System.out.print("K;Properties;metric;similarity;num of articles;num of testing set; num of learing set;");
                 for (String l : labelsToWorkOn) {
@@ -112,7 +129,7 @@ public class MainApp {
             OutputWriter.addText(metric);
             String similarity = cmd.getOptionValue("s");
             OutputWriter.addText(similarity);
-            Double out = r.run(kVal, props, metric, similarity, labelsToWorkOn, labelElementVal);
+            Double out = r.run(kVal, props, metric, similarity, labelsToWorkOn, labelElementVal, loaderName, readFromCache);
             OutputWriter.addText(""+(System.currentTimeMillis() - start) / 1000);
             OutputWriter.addText(""+out);
             System.out.println(OutputWriter.getString());

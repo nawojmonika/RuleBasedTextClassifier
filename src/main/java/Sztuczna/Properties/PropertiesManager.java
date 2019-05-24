@@ -1,7 +1,6 @@
 package Sztuczna.Properties;
 
 import Sztuczna.Algorithms.*;
-import Sztuczna.Article;
 import Sztuczna.Item;
 import javafx.util.Pair;
 
@@ -10,7 +9,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.DoubleStream;
 
 public class PropertiesManager {
     Map<UUID, ArrayList<Property>> userProperties;
@@ -63,7 +61,7 @@ public class PropertiesManager {
         int articleNum = 0;
         int numOfArticles = articles.size();
         for (Item article : articles) {
-            System.out.println("Done: " + ++articleNum + " / " + numOfArticles);
+            // System.out.println("Done: " + ++articleNum + " / " + numOfArticles);
             List<String> wordsInArticle = article.getAlgorithmsWords();
             Map<String, Double> wordsWithTFIDF = new HashMap<>();
             for (String word : wordsInArticle) {

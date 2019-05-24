@@ -1,6 +1,7 @@
-package Sztuczna;
+package Sztuczna.Loaders;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
+import Sztuczna.Item;
 
 import java.util.*;
 

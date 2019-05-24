@@ -3,9 +3,7 @@ package Sztuczna.Algorithms;
 import Sztuczna.Item;
 import Sztuczna.Properties.PropertiesManager;
 import Sztuczna.Properties.Property;
-import Sztuczna.Article;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

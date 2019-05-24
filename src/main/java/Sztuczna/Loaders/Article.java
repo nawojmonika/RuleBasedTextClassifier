@@ -1,10 +1,11 @@
-package Sztuczna;
+package Sztuczna.Loaders;
 
 import Sztuczna.Algorithms.interfaces.Algorithm;
+import Sztuczna.Item;
 
 import java.util.*;
 
-public class Article implements Item{
+public class Article implements Item {
     private String title;
     private String body;
     private String oldId;

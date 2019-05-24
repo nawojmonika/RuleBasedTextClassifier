@@ -1,9 +1,7 @@
 package Sztuczna.Properties;
 
-import Sztuczna.Article;
 import Sztuczna.Item;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
